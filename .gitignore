@@ -37,4 +37,4 @@ terraform.rc
 /dev/
 
 # HCL Lock file
-.terraform*
+.terraform.lock.hcl
