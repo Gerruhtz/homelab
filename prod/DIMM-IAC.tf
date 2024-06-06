@@ -5,7 +5,7 @@ resource "proxmox_vm_qemu" "DIMM-IAC" {
     target_node = "DIMM-HV01"
     vmid = 109
     agent = 1
-    ciuser = "tadmin"
+    ciuser = var.CIUSER
 
     # Cloning information
     #clone = "TEMP-UBNT-2404-VID20"
