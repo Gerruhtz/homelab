@@ -38,6 +38,3 @@ terraform.rc
 
 # HCL Lock file
 .terraform.lock.hcl
-
-# Install script
-install_tf_ans.sh
