@@ -1,25 +1,21 @@
-resource "proxmox_vm_qemu" "DIMM-HOAS" {
+resource "proxmox_vm_qemu" "DIMM-DOCKER" {
     
     # General information
-    name = "DIMM-HOAS"
+    name = "DIMM-DOCKER"
     target_node = "DIMM-HV01"
-    vmid = 105
-    agent = 1
-    ciuser = var.CIUSER
+    vmid = 1005
 
     # Cloning information
-    # clone = "TEMP-UBNT-2404-VID20"
-    # full_clone = true
-    # os_type = "cloud-init"
+    clone = "TEMP-UBNT-2404-VID10"
+    full_clone = true
+    os_type = "cloud-init"
 
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 1
-    memory = 2048
-    scsihw = "virtio-scsi-pci"
-    onboot = true
-    bios = "ovmf"
+    cores = 2
+    memory = 4096
+    scsihw = "virtio-scsi-single"
 
     # Disk information
     disks {
@@ -27,12 +23,18 @@ resource "proxmox_vm_qemu" "DIMM-HOAS" {
             scsi0 {
                 disk {
                     storage = "local-btrfs"
-                    size = 128
+                    size = 64
                     emulatessd = true
                     discard = true
                     backup = true
                     iothread = true
-                    replicate = true
+                }
+            }
+        }
+        ide {
+            ide0 {
+                cloudinit {
+                    storage = "local-btrfs"
                 }
             }
         }
@@ -41,11 +43,9 @@ resource "proxmox_vm_qemu" "DIMM-HOAS" {
     # Networking information
     network {
         model = "virtio"
-        bridge = "vmbr0"
-        #tag = 20
-        firewall = true
+        bridge = "vmbr1"
+        tag = 10
     }
-    ipconfig0 = "ip=10.10.1.5/24,gw=10.10.1.1"
+    ipconfig0 = "ip=10.10.10.5/24,gw=10.10.10.1"
     sshkeys = var.PUBLIC_SSH_KEY
-    boot = "order=scsi0"
 }
