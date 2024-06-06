@@ -40,4 +40,4 @@ terraform.rc
 .terraform.lock.hcl
 
 # Install script
-install_tf_ans_.sh
+install_tf_ans.sh
