@@ -1,0 +1,13 @@
+name: Deploy Terraform
+
+on:
+  push:
+    branchers:
+      master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: homelab
