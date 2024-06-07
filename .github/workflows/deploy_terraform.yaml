@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  Test:
     runs-on: "self-hosted"
 
     steps:
