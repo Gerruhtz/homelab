@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: git pull
-        working-directory: /home/tadmin/homelab
+        working-directory: $LOCAL_WORKING_DIRECTORY
