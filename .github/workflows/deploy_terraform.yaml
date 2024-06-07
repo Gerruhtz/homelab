@@ -11,6 +11,6 @@ jobs:
 
     steps:
       - name: Pull repo
-        uses: peter-evans/create-pull-request@v6
+        uses: actions/checkout@v4
         with:
-            branch: main
+          fetch-depth: 0
