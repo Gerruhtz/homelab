@@ -12,3 +12,6 @@ jobs:
     steps:
       - name: Pull repo
         uses: actions/checkout@v4
+        with:
+            repository: Gerruhtz/homelab
+            path: /home/tadmin/homelab
