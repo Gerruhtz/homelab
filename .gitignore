@@ -38,3 +38,5 @@ terraform.rc
 
 # HCL Lock file
 .terraform.lock.hcl
+prod/ansible_vars.yaml
+prod/default_vars.yaml

@@ -1,0 +1,7 @@
+vm:
+  hosts:
+    DIMM-IAC:
+      ansible_host: 10.10.1.9
+    DIMM-DOCKER:
+      ansible_host: 10.10.10.5
+      

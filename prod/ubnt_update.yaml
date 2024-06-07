@@ -1,0 +1,11 @@
+- name: Updating Ubuntu host
+  hosts: vm
+  tasks:
+    - name: Updating APT cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: yes
+    - name: Upgrading packages
+      become: true
+      ansible.builtin.apt:
+        upgrade: "dist"
