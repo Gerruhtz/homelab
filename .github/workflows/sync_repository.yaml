@@ -9,7 +9,9 @@ jobs:
   auto-pull:
     name: Pull homelab
     runs-on: 'self-hosted'
+    env:
+      WORKING_DIRECTORY: ${{ vars.LOCAL_WORKING_DIRECTORY}}
     steps:
       - uses: actions/checkout@v4
       - run: git pull
-        working-directory: $LOCAL_WORKING_DIRECTORY
+        working-directory: $WORKING_DIRECTORY
