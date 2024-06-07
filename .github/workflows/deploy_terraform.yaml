@@ -10,6 +10,9 @@ on:
     paths:
       - '**.tf'
 
+env:
+  TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
+
 jobs:
     terraform:
         name: "Test, plan and apply Terraform changes"
@@ -21,8 +24,10 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Terraform Plan
+              working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform plan -no-color -input=false
               continue-on-error: true
 
             - name: Terraform Apply
+              working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
