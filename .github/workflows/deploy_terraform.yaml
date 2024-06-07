@@ -6,12 +6,10 @@ on:
       - main
 
 jobs:
-  Pull:
-    runs-on: "self-hosted"
-
+  auto-pull:
+    name: Pull homelab
+    runs-on: 'self-hosted'
     steps:
-      - name: Pull repo
-        uses: actions/checkout@v4
-        with:
-            repository: Gerruhtz/homelab
-            path: homelab
+      - uses: actions/checkout@v4
+      - run: git pull
+        working-directory: /home/tadmin/homelab
