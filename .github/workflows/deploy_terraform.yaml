@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
-  Test:
+  Pull:
     runs-on: "self-hosted"
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Pull repo
+        uses: peter-evans/create-pull-request@v6
