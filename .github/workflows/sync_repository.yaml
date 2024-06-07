@@ -1,3 +1,5 @@
+# GitHub Actions workflow to pull Gerruhtz/homelab on push to main
+
 name: Sync repository
 
 on:
