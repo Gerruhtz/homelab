@@ -13,6 +13,7 @@ on:
 
 env:
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
+  ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
 jobs:
     terraform:
@@ -32,3 +33,13 @@ jobs:
             - name: Terraform Apply
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
+
+    # ansible:
+        # name: "Update configuration using Ansible"
+
+        # runs-on: 'self-hosted'
+        # steps:
+
+          # - name: Run Ansible configuration
+              # working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              # run: ansible-playbook -i inventory.yaml ubnt_update.yaml
