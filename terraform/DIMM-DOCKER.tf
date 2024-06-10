@@ -24,7 +24,7 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER" {
             scsi0 {
                 disk {
                     storage = "local-btrfs"
-                    size = 64
+                    size = 128
                     emulatessd = true
                     discard = true
                     backup = true
