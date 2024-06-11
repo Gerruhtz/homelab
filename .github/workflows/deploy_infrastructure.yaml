@@ -1,7 +1,7 @@
 # GitHub Actions workflow to run 'terraform apply' after push to main
 # Only runs when a change to .tf files is pushed to main
 
-name: Deploy Terraform
+name: "Deploy new infrastructure"
 
 on:
   push:
@@ -16,9 +16,8 @@ env:
   ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
 jobs:
-    terraform:
-        name: "Test, plan and apply Terraform changes"
-
+    deployment:
+        name: Deploy new infrastructure
         runs-on: 'self-hosted'
         steps:
 
@@ -34,18 +33,10 @@ jobs:
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
 
-            
-            #- name: Add new hosts to Ansible inventory
-             # working-directory: ${{ vars.SCRIPTS_WORKING_DIRECTORY}}
-              #run: 
+            - name: Run Ansible playbook 'base_config.yaml'
+              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              run: ansible-playbook base_config.yaml -i inventory.yaml
 
-
-    # ansible:
-        # name: "Update configuration using Ansible"
-
-        # runs-on: 'self-hosted'
-        # steps:
-
-          # - name: Run Ansible configuration
-              # working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
-              # run: ansible-playbook -i inventory.yaml ubnt_update.yaml
+            - name: Run Ansible playbook 'base_security.yaml'
+              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              run: ansible-playbook base_security.yaml -i inventory.yaml

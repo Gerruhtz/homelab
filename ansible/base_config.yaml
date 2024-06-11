@@ -1,5 +1,5 @@
 - name: Deploying base configuration
-  hosts: managed
+  hosts: VID20
   tasks:
 
     - name: Updating APT cache

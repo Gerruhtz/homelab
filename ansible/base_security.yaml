@@ -1,7 +1,10 @@
 - name: Implement basic security features
-  hosts: all
+  hosts: VID20
   tasks:
     - name: Remove password for root
+      become: true
+      ansible.builtin.shell: sudo passwd -d root
     - name: Install public SSH key
+      ansible.builtin.shell: cat "{{ public_ssh_key }}" >> .ssh/authorized_keys
     - name: Disable SSH password authentication
     - name: Disable SSH access for root
