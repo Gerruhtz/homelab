@@ -37,8 +37,8 @@ jobs:
       runs-on: 'self-hosted'
       needs: terraform
       steps:
-            - name: Wait for 2 minutes
-              run: sleep 2m
+            - name: Wait for 1 minute
+              run: sleep 1m
 
             - name: Run Ansible playbook 'base_config.yaml'
               working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
