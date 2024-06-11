@@ -5,7 +5,7 @@
       become: true
       ansible.builtin.shell: sudo passwd -d root
     - name: Install public SSH key
-      ansible.builtin.shell: cat "{{ public_ssh_key }}" >> .ssh/authorized_keys
+      ansible.builtin.shell: echo "{{ public_ssh_key }}" >> ~/.ssh/authorized_keys
     - name: Disable SSH password authentication
       ansible.builtin.shell: sudo sed -E -i 's|^#?(PasswordAuthentication)\s.*|\1 no|' /etc/ssh/sshd_config && if ! grep '^PasswordAuthentication\s' /etc/ssh/sshd_config; then echo 'PasswordAuthentication no' | sudo tee -a /etc/ssh/sshd_config; fi
     - name: Disable SSH access for root
