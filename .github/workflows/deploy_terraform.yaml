@@ -34,6 +34,12 @@ jobs:
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
 
+            
+            #- name: Add new hosts to Ansible inventory
+             # working-directory: ${{ vars.SCRIPTS_WORKING_DIRECTORY}}
+              #run: 
+
+
     # ansible:
         # name: "Update configuration using Ansible"
 
