@@ -31,8 +31,8 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
                     emulatessd = true
                     discard = true
                     backup = true
-                    iothread = true
                     cache = "writethrough"
+                    iothread = true
                 }
             }
         }

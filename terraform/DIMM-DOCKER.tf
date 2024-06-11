@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER" {
     cpu = "host"
     sockets = 1
     cores = 2
-    memory = 4096
+    memory = 8192
     scsihw = "virtio-scsi-single"
 
     # Disk information
