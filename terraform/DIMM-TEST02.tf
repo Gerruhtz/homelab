@@ -4,6 +4,7 @@ resource "proxmox_vm_qemu" "DIMM-TEST02" {
     name = "DIMM-TEST02"
     target_node = "DIMM-HV01"
     vmid = 2003
+    ciuser = var.CIUSER
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID20"
