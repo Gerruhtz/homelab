@@ -1,0 +1,13 @@
+- name: Deploying base configuration
+  hosts: managed
+  tasks:
+    - name: Updating APT cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: yes
+    - name: Installing packages
+      ansible.builtin.apt:
+        pkg:
+        - nano
+        - git
+        - qemu_guest_agent
