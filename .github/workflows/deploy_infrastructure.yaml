@@ -25,7 +25,7 @@ jobs:
 
             - name: Terraform Plan
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
-              run: terraform plan -no-color -input=false
+              run: terraform plan -input=false
               continue-on-error: true
 
             - name: Terraform Apply

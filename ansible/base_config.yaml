@@ -1,5 +1,5 @@
 - name: Deploying base configuration
-  hosts: VID20
+  hosts: VID10:VID20
   tasks:
 
     - name: Add Cloudflare DNS server
