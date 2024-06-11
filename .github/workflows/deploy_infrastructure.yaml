@@ -33,8 +33,8 @@ jobs:
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
 
-            - name: Wait for 60 seconds
-              run: sleep 60s
+            - name: Wait for 2 minutes
+              run: sleep 2m
 
             - name: Run Ansible playbook 'base_config.yaml'
               working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
