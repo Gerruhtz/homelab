@@ -1,5 +1,5 @@
 - name: Updating Ubuntu host
-  hosts: vm
+  hosts: managed
   tasks:
     - name: Updating APT cache
       become: true

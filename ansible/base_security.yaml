@@ -1,0 +1,7 @@
+- name: Implement basic security features
+  hosts: all
+  tasks:
+    - name: Remove password for root
+    - name: Install public SSH key
+    - name: Disable SSH password authentication
+    - name: Disable SSH access for root
