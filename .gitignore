@@ -36,13 +36,12 @@ terraform.rc
 # Dev folder
 /dev/
 
-# Ansible vars folders and inventory
+# Ansible files and folders
 /ansible/group_vars/
 /ansible/host_vars/
 /ansible/inventory.yaml
+/ansible/ansible.cfg
 
-# HCL Lock file
+# Terraform files and folders
 .terraform.lock.hcl
-prod/ansible_vars.yaml
-prod/default_vars.yaml
-ansible/ansible.cfg
+/terraform/archived/
