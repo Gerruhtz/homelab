@@ -16,11 +16,10 @@ env:
   ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
 jobs:
-    deployment:
+    terraform:
         name: Deploy new infrastructure
         runs-on: 'self-hosted'
         steps:
-
             - name: Checkout
               uses: actions/checkout@v4
 
@@ -33,6 +32,11 @@ jobs:
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform apply -auto-approve -input=false
 
+    ansible:
+      name: Configure new infrastructure
+      runs-on: 'self-hosted'
+      needs: terraform
+      steps:
             - name: Wait for 2 minutes
               run: sleep 2m
 
