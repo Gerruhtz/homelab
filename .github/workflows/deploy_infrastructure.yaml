@@ -43,7 +43,3 @@ jobs:
             - name: Run Ansible playbook 'base_config.yaml'
               working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
               run: ansible-playbook base_config.yaml -i inventory.yaml
-
-            - name: Run Ansible playbook 'base_security.yaml'
-              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
-              run: ansible-playbook base_security.yaml -i inventory.yaml
