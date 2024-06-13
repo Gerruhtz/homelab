@@ -4,9 +4,9 @@ resource "proxmox_vm_qemu" "DIMM-NAS02" {
     name = "DIMM-NAS02"
     target_node = "DIMM-HV01"
     vmid = 107
-    ciuser = var.CIUSER
     agent = 1
     onboot = true
+    tags = "managed"
 
     # Cloning information
     #clone = "TEMP-UBNT-2404-VID10"
@@ -68,4 +68,5 @@ resource "proxmox_vm_qemu" "DIMM-NAS02" {
     }
     ipconfig0 = "ip=10.10.1.7/24,gw=10.10.10.1"
     sshkeys = var.PUBLIC_SSH_KEY
+    define_connection_info = true
 }
