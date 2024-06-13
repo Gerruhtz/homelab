@@ -6,7 +6,7 @@ resource "proxmox_vm_qemu" "DIMM-NAS02" {
     vmid = 107
     agent = 1
     onboot = true
-    tags = "TF,ANSI"
+    tags = "tf,ansi"
 
     # Cloning information
     #clone = "TEMP-UBNT-2404-VID10"

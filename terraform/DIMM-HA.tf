@@ -7,7 +7,7 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
     ciuser = var.CIUSER
     agent = 1
     onboot = true
-    tags = "TF,ANSI"
+    tags = "tf"
 
 
     # Cloning information
