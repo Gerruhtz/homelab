@@ -5,6 +5,8 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER" {
     target_node = "DIMM-HV01"
     vmid = 1005
     ciuser = var.CIUSER
+    tags = "TF,ANSI"
+
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID10"

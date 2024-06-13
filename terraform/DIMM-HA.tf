@@ -7,6 +7,8 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
     ciuser = var.CIUSER
     agent = 1
     onboot = true
+    tags = "TF,ANSI"
+
 
     # Cloning information
     #clone = "TEMP-UBNT-2404-VID10"
