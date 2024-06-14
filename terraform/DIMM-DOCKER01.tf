@@ -1,7 +1,7 @@
-resource "proxmox_vm_qemu" "DIMM-DOCKER" {
+resource "proxmox_vm_qemu" "DIMM-DOCKER01" {
     
     # General information
-    name = "DIMM-DOCKER"
+    name = "DIMM-DOCKER01"
     target_node = "DIMM-HV01"
     vmid = 1005
     ciuser = var.CIUSER
