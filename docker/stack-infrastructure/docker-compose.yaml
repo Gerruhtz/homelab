@@ -41,11 +41,7 @@ services:
         target: /data/db
         volume:
           subpath: unifi-db
-      - type: volume
-        source: infrastructure_data
-        target: /docker-entrypoint-initdb.d/init-mongo.js:ro
-        volume:
-          subpath: unifi-db
+      - /home/tadmin/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     restart: always
 
   unifi-controller:
