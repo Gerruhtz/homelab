@@ -6,7 +6,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
       - type: volume
-        source: infrastructure_config
+        source: infrastructure_data
         target: /app/config
         volume:
           subpath: homepage_data
