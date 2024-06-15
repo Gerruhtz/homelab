@@ -10,8 +10,7 @@ on:
     paths:
       - '**.tf'
       - '**.tfvars'
-    paths-ignore:
-      - '**.docker.tf'
+      - '!.docker.tf'
 
 env:
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}

@@ -1,5 +1,5 @@
 # GitHub Actions workflow to run 'terraform apply' after push to main
-# Only runs when a change to .tf files is pushed to main
+# Only runs when a change to .docker.tf files is pushed to main
 
 name: "Deploy Docker server"
 
