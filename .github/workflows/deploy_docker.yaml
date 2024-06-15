@@ -24,7 +24,7 @@ jobs:
           working-directory: ${{ vars.LOCAL_WORKING_DIRECTORY }}
           
     terraform:
-        name: Deploy new infrastructure
+        name: Deploy infrastructure
         runs-on: 'self-hosted'
         steps:
 
@@ -38,7 +38,7 @@ jobs:
               run: terraform apply -auto-approve -input=false
 
     ansible:
-      name: Configure new Docker server
+      name: Configure Docker server
       runs-on: 'self-hosted'
       needs: terraform
       steps:

@@ -1,7 +1,7 @@
 # GitHub Actions workflow to run 'terraform apply' after push to main
 # Only runs when a change to .tf files is pushed to main
 
-name: "Deploy new infrastructure"
+name: "Deploy infrastructure"
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
           working-directory: ${{ vars.LOCAL_WORKING_DIRECTORY }}
 
     terraform:
-        name: Deploy new infrastructure
+        name: Deploy infrastructure
         runs-on: 'self-hosted'
         steps:
             - name: Checkout
@@ -42,7 +42,7 @@ jobs:
               run: terraform apply -auto-approve -input=false
 
     ansible:
-      name: Configure new infrastructure
+      name: Configure infrastructure
       runs-on: 'self-hosted'
       needs: terraform
       steps:
