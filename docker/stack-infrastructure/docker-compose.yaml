@@ -34,7 +34,7 @@ services:
     restart: always
 
   unifi-db:
-    image: mongo:7
+    image: mongo:7.0.11
     volumes:
       - type: volume
         source: infrastructure_data
