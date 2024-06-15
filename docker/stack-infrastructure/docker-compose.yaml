@@ -4,7 +4,6 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
     volumes:
       - type: volume
         source: infrastructure_data
@@ -17,7 +16,6 @@ services:
 
   nginx:
     image: jc21/nginx-proxy-manager:latest
-    container_name: nginx-proxy-manager
     volumes:
       - type: volume
         source: infrastructure_data
@@ -35,9 +33,23 @@ services:
       - "81:81"
     restart: always
 
+  unifi-db:
+    image: docker.io/mongo:6.0
+    volumes:
+      - type: volume
+        source: infrastructure_data
+        target: /data/db
+        volume:
+          subpath: unifi-db
+      - type: volume
+        source: infrastructure_data
+        target: /docker-entrypoint-initdb.d/init-mongo.js:ro
+        volume:
+          subpath: unifi-db
+    restart: always
+
   unifi-controller:
     image: linuxserver/unifi-network-application:latest
-    container_name: unifi-controller
     environment:
       - PUID=1000
       - PGID=1000
