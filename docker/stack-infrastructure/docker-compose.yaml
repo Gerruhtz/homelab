@@ -4,6 +4,7 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
     volumes:
       - type: volume
         source: infrastructure_data
@@ -16,6 +17,7 @@ services:
 
   nginx:
     image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
     volumes:
       - type: volume
         source: infrastructure_data
@@ -35,6 +37,16 @@ services:
 
   unifi-controller:
     image: linuxserver/unifi-network-application:latest
+    container_name: unifi-controller
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - MONGO_USER=unifi
+      - MONGO_PASS=
+      - MONGO_HOST=unifi-db
+      - MONGO_PORT=27017
+      - MONGO_DBNAME=unifi
     volumes:
       - type: volume
         source: infrastructure_data
