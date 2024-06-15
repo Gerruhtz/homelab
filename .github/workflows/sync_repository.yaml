@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.tf'
 
 env:
   WORKING_DIRECTORY: ${{ vars.LOCAL_WORKING_DIRECTORY }}

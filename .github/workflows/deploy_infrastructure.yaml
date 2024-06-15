@@ -9,14 +9,22 @@ on:
       - main
     paths:
       - '**.tf'
-      - '**.tfvars'
       - '!**/DIMM-SWARM*.tf'
 
 env:
+  WORKING_DIRECTORY: ${{ vars.LOCAL_WORKING_DIRECTORY }}
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
   ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
 jobs:
+    auto-pull:
+      name: Pull homelab repository
+      runs-on: 'self-hosted'
+      steps:
+        - uses: actions/checkout@v4
+        - run: git pull
+          working-directory: ${{ vars.LOCAL_WORKING_DIRECTORY }}
+
     terraform:
         name: Deploy new infrastructure
         runs-on: 'self-hosted'

@@ -15,12 +15,18 @@ env:
   ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
 jobs:
+    auto-pull:
+      name: Pull homelab repository
+      runs-on: 'self-hosted'
+      steps:
+        - uses: actions/checkout@v4
+        - run: git pull
+          working-directory: ${{ vars.LOCAL_WORKING_DIRECTORY }}
+          
     terraform:
         name: Deploy new infrastructure
         runs-on: 'self-hosted'
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
 
             - name: Terraform Plan
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
