@@ -19,6 +19,7 @@ services:
       - "443:443"
       - "80:80"
       - "81:81"
+    restart: always
 
   unifi-controller:
     image: linuxserver/unifi-controller:latest
@@ -29,6 +30,7 @@ services:
       - "3478:3478"
       - "8080:8080"
       - "8443:8443"
+    restart: always
 
 volumes:
   infrastructure_data:
