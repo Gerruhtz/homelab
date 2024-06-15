@@ -8,7 +8,7 @@ on:
     branches:
       - main
     paths:
-      - DIMM-SWARM*.tf
+      - 'DIMM-SWARM*.tf'
 
 env:
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
