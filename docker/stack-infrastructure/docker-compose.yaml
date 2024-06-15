@@ -1,0 +1,34 @@
+# Docker Compose file deploying infrastructure services
+version: "3"
+services:
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    volumes:
+      - infrastructure_config/homepage-data:/app/config
+    ports:
+      - "3333:3333"
+    restart: always
+
+  nginx:
+    image: jc21/nginx-proxy-manager:latest
+    volumes:
+      - infrastructure_data/nginx-data:/data
+      - infrastructure_data/nginx-cert:/etc/letsencrypt
+    ports:
+      - "443:443"
+      - "80:80"
+      - "81:81"
+
+  unifi-controller:
+    image: linuxserver/unifi-controller:latest
+    volumes:
+      - infrastructure_data/unifi-data:/config
+    ports:
+      - "10001:10001"
+      - "3478:3478"
+      - "8080:8080"
+      - "8443:8443"
+
+volume:
+  infrastructure_data:
