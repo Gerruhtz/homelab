@@ -34,7 +34,7 @@ services:
     restart: always
 
   unifi-db:
-    image: docker.io/mongo:6.0
+    image: docker.io/mongo:7.0
     volumes:
       - type: volume
         source: infrastructure_data
@@ -55,7 +55,7 @@ services:
       - PGID=1000
       - TZ=Europe/Amsterdam
       - MONGO_USER=unifi
-      - MONGO_PASS=
+      - MONGO_PASS=unifuck
       - MONGO_HOST=unifi-db
       - MONGO_PORT=27017
       - MONGO_DBNAME=unifi
