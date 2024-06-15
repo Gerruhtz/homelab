@@ -16,3 +16,7 @@ sudo apt-get update
 
 # Install Docker packages
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+# Enable sudo-less Docker commands
+sudo usermod -aG docker tadmin
+newgrp docker
