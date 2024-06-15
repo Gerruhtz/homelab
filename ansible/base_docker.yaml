@@ -1,0 +1,19 @@
+- name: Install Docker
+  hosts: DOCKER
+  tasks:
+  
+    - name: Download install script
+      become: true
+      ansible.builtin.shell: wget https://raw.githubusercontent.com/Gerruhtz/homelab/main/scripts/install_docker.sh -O install_docker.sh
+      args:
+        chdir: /home/tadmin/
+
+    - name: Make install script executable
+      become: true
+      ansible.builtin.shell: sudo chmod +x /home/tadmin/install_docker.sh
+
+    - name: Run Docker install script
+      become: true
+      ansible.builtin.shell: /home/tadmin/install_docker.sh
+      args:
+        executable: /bin/bash 

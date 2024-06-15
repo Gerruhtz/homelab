@@ -1,0 +1,44 @@
+# GitHub Actions workflow to run 'terraform apply' after push to main
+# Only runs when a change to .tf files is pushed to main
+
+name: "Deploy Docker server"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'DIMM-SWARM**.tf'
+
+env:
+  TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
+  ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
+
+jobs:
+    terraform:
+        name: Deploy new infrastructure
+        runs-on: 'self-hosted'
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Terraform Plan
+              working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
+              run: terraform plan -input=false
+              continue-on-error: true
+
+            - name: Terraform Apply
+              working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
+              run: terraform apply -auto-approve -input=false
+
+    ansible:
+      name: Configure new Docker server
+      runs-on: 'self-hosted'
+      needs: terraform
+      steps:
+            - name: Wait for 1 minute
+              run: sleep 1m
+
+            - name: Run Ansible playbook 'base_docker.yaml'
+              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              run: ansible-playbook base_docker.yaml -i inventory.yaml
