@@ -1,5 +1,4 @@
 # Docker Compose file deploying monitoring services
-version: "3.8"
 services:
 
   influxdb:
