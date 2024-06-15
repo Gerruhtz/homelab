@@ -10,7 +10,7 @@ on:
     paths:
       - '**.tf'
       - '**.tfvars'
-      - '!.docker.tf'
+      - '!DIMM-SWARM*.tf'
 
 env:
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
