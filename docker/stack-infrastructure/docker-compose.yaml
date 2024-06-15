@@ -5,7 +5,11 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
-      - infrastructure_config/homepage-data:/app/config
+      - type: volume
+        source: infrastructure_config
+        target: /app/config
+        volume:
+          subpath: homepage_data
     ports:
       - "3333:3333"
     restart: always
@@ -13,8 +17,16 @@ services:
   nginx:
     image: jc21/nginx-proxy-manager:latest
     volumes:
-      - infrastructure_data/nginx-data:/data
-      - infrastructure_data/nginx-cert:/etc/letsencrypt
+      - type: volume
+        source: infrastructure_data
+        target: /data
+        volume:
+          subpath: nginx_data
+      - type: volume
+        source: infrastructure_data
+        target: /etc/letsencrypt
+        volume:
+          subpath: nginx_cert
     ports:
       - "443:443"
       - "80:80"
@@ -24,7 +36,11 @@ services:
   unifi-controller:
     image: linuxserver/unifi-controller:latest
     volumes:
-      - infrastructure_data/unifi-data:/config
+      - type: volume
+        source: infrastructure_data
+        target: /config
+        volume:
+          subpath: unifi_data
     ports:
       - "10001:10001"
       - "3478:3478"
