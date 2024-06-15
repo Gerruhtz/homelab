@@ -16,4 +16,4 @@
       become: true
       ansible.builtin.shell: /home/tadmin/install_docker.sh
       args:
-        executable: /bin/bash 
+        executable: /bin/bash
