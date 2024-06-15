@@ -39,6 +39,10 @@ jobs:
             - name: Wait for 1 minute
               run: sleep 1m
 
+            - name: Run Ansible playbook 'base_config.yaml'
+              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              run: ansible-playbook base_config.yaml -i inventory.yaml
+
             - name: Run Ansible playbook 'base_docker.yaml'
               working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
               run: ansible-playbook base_docker.yaml -i inventory.yaml
