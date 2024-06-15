@@ -34,7 +34,7 @@ services:
     restart: always
 
   unifi-db:
-    image: docker.io/mongo:6.1
+    image: docker.io/mongo:7
     volumes:
       - type: volume
         source: infrastructure_data
