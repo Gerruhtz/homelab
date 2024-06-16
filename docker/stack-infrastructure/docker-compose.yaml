@@ -5,11 +5,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
-      - type: volume
-        source: infrastructure_data
-        target: /app/config
-        volume:
-          subpath: homepage_data
+      - homepage:/app/config
     ports:
       - "3333:3000"
     restart: always
@@ -17,16 +13,8 @@ services:
   nginx:
     image: jc21/nginx-proxy-manager:latest
     volumes:
-      - type: volume
-        source: infrastructure_data
-        target: /data
-        volume:
-          subpath: nginx_data
-      - type: volume
-        source: infrastructure_data
-        target: /etc/letsencrypt
-        volume:
-          subpath: nginx_cert
+      - nginx-proxy-manager:/data
+      - nginx-certs:/etc/letsencrypt
     ports:
       - "443:443"
       - "80:80"
@@ -36,11 +24,7 @@ services:
   unifi-db:
     image: mongo:7.0.11
     volumes:
-      - type: volume
-        source: infrastructure_data
-        target: /data/db
-        volume:
-          subpath: unifi-db
+      - unifi-db:/data/db
       - /home/tadmin/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     ports:
       - "27017:27017"
@@ -58,11 +42,7 @@ services:
       - MONGO_PORT=27017
       - MONGO_DBNAME=unifi
     volumes:
-      - type: volume
-        source: infrastructure_data
-        target: /config
-        volume:
-          subpath: unifi_data
+      - unifi:/config
     ports:
       - "10001:10001/udp"
       - "3478:3478/udp"
@@ -71,4 +51,8 @@ services:
     restart: always
 
 volumes:
-  infrastructure_data:
+  homepage:
+  nginx-proxy-manager:
+  nginx-certs:
+  unifi-db:
+  unifi:

@@ -5,8 +5,8 @@ services:
   influxdb:
     image: influxdb:latest
     volumes:
-      - monitoring_data/influx-data:/var/lib/influxdb2
-      - monitoring_data/influx-config:/etc/influxdb2
+      - influxdb:/var/lib/influxdb2
+      - influxdb:/etc/influxdb2
     ports:
       - "8086:8086"
     restart: always
@@ -14,7 +14,7 @@ services:
   grafana:
     image: grafana/grafana-enterprise
     volumes:
-      - monitoring_data/grafana-data:/var/lib/grafana
+      - grafana:/var/lib/grafana
     ports:
       - "3000:3000"
     restart: always
@@ -22,11 +22,12 @@ services:
   uptime-kuma:
     image: louislam/uptime-kuma
     volumes:
-      - monitoring_data/uptime-data:/app/data
+      - uptime-kuma:/app/data
     ports:
       - "3001:3001"
     restart: always
 
 volumes:
-  monitoring_data:
-  monitoring_config:
+  influxdb:
+  grafana:
+  uptime-kuma:
