@@ -4,6 +4,7 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
     volumes:
       - type: volume
         source: Homepage
@@ -14,6 +15,7 @@ services:
 
   nginx:
     image: jc21/nginx-proxy-manager:latest
+    container_name: nginx
     volumes:
       - type: volume
         source: Nginx
@@ -41,9 +43,10 @@ services:
 
   unifi-controller:
     image: linuxserver/unifi-network-application:latest
+    container_name: unifi
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=1000
+      - PGID=1000
       - TZ=Europe/Amsterdam
       - MONGO_USER=unifi
       - MONGO_PASS=unifuck
