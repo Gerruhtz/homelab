@@ -29,6 +29,7 @@ services:
 
   unifi-db:
     image: docker.io/mongo:7.0.11
+    container_name: unifi-db
     volumes:
       - type: volume
         source: Unifi-DB
