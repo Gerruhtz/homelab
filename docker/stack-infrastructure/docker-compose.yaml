@@ -46,6 +46,15 @@ services:
       - TZ=Europe/Amsterdam
     restart: always
 
+  mongo:
+    image: mongo:5.0
+    container_name: unifidb
+    restart: always
+    volumes:
+      - type: volume
+        source: UnifiDB
+        target: /data/db
+
 volumes:
   Homepage:
     driver: local
@@ -65,3 +74,9 @@ volumes:
       type: nfs
       o: addr=10.10.1.7,rw
       device: ":/mnt/Array/Docker/Unifi"
+  UnifiDB:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Unifi-DB"
