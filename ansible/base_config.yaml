@@ -19,6 +19,7 @@
         - git
         - qemu-guest-agent
         - iputils-ping
+        - nfs-common
 
     - name: Enabling services
       become: true
