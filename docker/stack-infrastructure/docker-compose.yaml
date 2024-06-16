@@ -40,8 +40,8 @@ services:
   unifi-controller:
     image: linuxserver/unifi-controller:latest
     environment:
-      # - PUID=1000
-      # - PGID=1000
+      - PUID=1000
+      - PGID=1000
       - TZ=Europe/Amsterdam
       # - MONGO_USER=unifi
       # - MONGO_PASS=unifuck
