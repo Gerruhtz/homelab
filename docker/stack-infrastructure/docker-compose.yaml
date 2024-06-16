@@ -32,6 +32,8 @@ services:
   unifi:
     image: ghcr.io/goofball222/unifi
     container_name: unifi
+    links:
+      - mongo
     volumes:
       - type: volume
         source: Unifi
@@ -44,6 +46,10 @@ services:
       - "8843:8843"
     environment:
       - TZ=Europe/Amsterdam
+      - DB_MONGO_LOCAL=false
+      - DB_MONGO_URI=mongodb://infrastructure_mongo:27017/unifi
+      - STATDB_MONGO_URI=mongodb://infrastructure_mongo:27017/unifi_stat
+      - UNIFI_DB_NAME=unifi
     restart: always
 
   mongo:
