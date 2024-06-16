@@ -15,5 +15,7 @@
     - name: Run Docker install script
       become: true
       ansible.builtin.shell: /home/tadmin/install_docker.sh
-      args:
-        executable: /bin/bash
+
+    - name: Mount Media share
+      become: true
+      ansible.builtin.shell: sudo mkdir /mnt/Media && echo "10.10.1.7:/mnt/Array/Media /mnt/Media nfs defaults 0 0" >> ~/.ssh/authorized_keys

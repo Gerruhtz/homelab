@@ -1,0 +1,113 @@
+# Docker Compose file deploying media services
+version: "3.8"
+services:
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+      - /mnt/Media/radarr:/movies
+    ports:
+      - "7878:7878"
+      restart: always
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+      - /mnt/Media/sonarr:/tv
+    ports:
+      - "8989:8989"
+    restart: always
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+    ports:
+      - "9696:9696"
+    restart: always
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+      - /mnt/Media/radarr:/movies
+      - /mnt/Media/sonarr:/tv
+    ports:
+      - "6767:6767"
+    restart: always
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+      - /mnt/Media/downloads:/downloads
+      - /mnt/Media/radarr:/movies
+      - /mnt/Media/sonarr:/tv
+    ports:
+      - "8888:8080"
+      - "6881:6881"
+    restart: always
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: ARR
+        target: /config
+      - /mnt/Media/radarr:/data/movies
+      - /mnt/Media/sonarr:/data/tvshows
+    ports:
+      - "8096:8096"
+    restart: always
+
+volumes:
+  ARR:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/ARR"
