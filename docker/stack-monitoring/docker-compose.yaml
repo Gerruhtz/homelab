@@ -5,8 +5,12 @@ services:
   influxdb:
     image: influxdb:latest
     volumes:
-      - influxdb:/var/lib/influxdb2
-      - influxdb:/etc/influxdb2
+      - type: volume
+        source: InfluxDB
+        target: /var/lib/influxdb2
+      - type: volume
+        source: InfluxDB
+        target: /etc/influxdb2
     ports:
       - "8086:8086"
     restart: always
@@ -14,7 +18,9 @@ services:
   grafana:
     image: grafana/grafana-enterprise
     volumes:
-      - grafana:/var/lib/grafana
+      - type: volume
+        source: Grafana
+        target: /var/lib/grafana
     ports:
       - "3000:3000"
     restart: always
@@ -22,12 +28,29 @@ services:
   uptime-kuma:
     image: louislam/uptime-kuma
     volumes:
-      - uptime-kuma:/app/data
+      - type: volume
+        source: Uptime-Kuma
+        target: /app/data
     ports:
       - "3001:3001"
     restart: always
 
 volumes:
-  influxdb:
-  grafana:
-  uptime-kuma:
+  InfluxDB:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/InfluxDB"
+  Grafana:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Grafana"
+  Uptime-Kuma:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Uptime-Kuma"
