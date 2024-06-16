@@ -37,7 +37,13 @@ services:
     volumes:
       - type: volume
         source: Unifi
-        target: /usr/lib/unifi
+        target: /usr/lib/unifi/cert
+      - type: volume
+        source: Unifi
+        target: /usr/lib/unifi/data
+      - type: volume
+        source: Unifi
+        target: /usr/lib/unifi/logs
     ports:
       - "3478:3478/udp"
       - "8080:8080"
@@ -50,7 +56,7 @@ services:
       - DB_MONGO_URI=mongodb://mongo:27017/unifi
       - STATDB_MONGO_URI=mongodb://mongo:27017/unifi_stat
       - UNIFI_DB_NAME=unifi
-    restart: always
+    restart: unless-stopped
 
   mongo:
     image: mongo:5.0
