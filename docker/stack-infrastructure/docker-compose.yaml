@@ -29,6 +29,23 @@ services:
       - "81:81"
     restart: always
 
+  unifi:
+    image: ghcr.io/goofball222/unifi
+    container_name: unifi
+    volumes:
+      - type: volume
+        source: Unifi
+        target: /usr/lib/unifi
+    ports:
+      - "3478:3478/udp"
+      - "8080:8080"
+      - "8443:8443"
+      - "8880:8880"
+      - "8843:8843"
+    environment:
+      - TZ=Europe/Amsterdam
+    restart: always
+
 volumes:
   Homepage:
     driver: local
@@ -42,3 +59,9 @@ volumes:
       type: nfs
       o: addr=10.10.1.7,rw
       device: ":/mnt/Array/Docker/Nginx"
+  Unifi:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Unifi"
