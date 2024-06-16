@@ -26,7 +26,7 @@ resource "proxmox_vm_qemu" "DIMM-SWARM02" {
             scsi0 {
                 disk {
                     storage = "local-btrfs"
-                    size = 64
+                    size = 32
                     emulatessd = true
                     discard = true
                     backup = true

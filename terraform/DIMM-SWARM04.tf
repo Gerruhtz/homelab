@@ -1,11 +1,11 @@
-resource "proxmox_vm_qemu" "DIMM-DOCKER01" {
+resource "proxmox_vm_qemu" "DIMM-SWARM04" {
     
     # General information
-    name = "DIMM-DOCKER01"
+    name = "DIMM-SWARM04"
     target_node = "DIMM-HV01"
-    vmid = 1005
+    vmid = 1024
     ciuser = var.CIUSER
-    tags = "tf,ansi"
+    tags = "tf,ansi,node"
 
 
     # Cloning information
@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER01" {
     cpu = "host"
     sockets = 1
     cores = 2
-    memory = 8192
+    memory = 4096
     scsihw = "virtio-scsi-single"
 
     # Disk information
@@ -26,7 +26,7 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER01" {
             scsi0 {
                 disk {
                     storage = "local-btrfs"
-                    size = 128
+                    size = 32
                     emulatessd = true
                     discard = true
                     backup = true
@@ -49,6 +49,6 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER01" {
         bridge = "vmbr1"
         tag = 10
     }
-    ipconfig0 = "ip=10.10.10.5/24,gw=10.10.10.1"
+    ipconfig0 = "ip=10.10.10.24/24,gw=10.10.10.1"
     sshkeys = var.PUBLIC_SSH_KEY
 }
