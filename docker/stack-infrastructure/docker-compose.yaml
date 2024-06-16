@@ -54,7 +54,7 @@ services:
 
   mongo:
     image: mongo:5.0
-    container_name: unifidb
+    container_name: mongo
     restart: always
     volumes:
       - type: volume
