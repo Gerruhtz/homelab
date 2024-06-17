@@ -4,14 +4,13 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: ARR
+        source: Radarr
         target: /config
       - /mnt/Media/radarr:/movies
     ports:
@@ -20,14 +19,13 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: ARR
+        source: Sonarr
         target: /config
       - /mnt/Media/sonarr:/tv
     ports:
@@ -36,14 +34,13 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: ARR
+        source: Prowlarr
         target: /config
     ports:
       - "9696:9696"
@@ -51,14 +48,13 @@ services:
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: ARR
+        source: Bazarr
         target: /config
       - /mnt/Media/radarr:/movies
       - /mnt/Media/sonarr:/tv
@@ -68,7 +64,6 @@ services:
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: bazarr
     environment:
       - PUID=1000
       - PGID=1000
@@ -77,7 +72,7 @@ services:
       - TORRENTING_PORT=6881
     volumes:
       - type: volume
-        source: ARR
+        source: QBit
         target: /config
       - /mnt/Media/downloads:/downloads
       - /mnt/Media/radarr:/movies
@@ -96,7 +91,7 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: ARR
+        source: Jellyfin
         target: /config
       - /mnt/Media/radarr:/data/movies
       - /mnt/Media/sonarr:/data/tvshows
@@ -105,9 +100,39 @@ services:
     restart: always
 
 volumes:
-  ARR:
+  Radarr:
     driver: local
     driver_opts:
       type: nfs
       o: addr=10.10.1.7,rw
-      device: ":/mnt/Array/Docker/ARR"
+      device: ":/mnt/Array/Docker/Radarr"
+  Sonarr:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Sonarr"
+  Prowlarr:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Prowlarr"
+  Bazarr:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Bazarr"
+  QBit:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/QBit"
+  Jellyfin:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/Jellyfin"
