@@ -61,14 +61,31 @@ services:
   mongo:
     image: mongo:5.0
     container_name: mongo
-    restart: always
+    restart: unless-stopped
     volumes:
       - type: volume
         source: UnifiDB
         target: /data/db
     restart: unless-stopped
 
+  bind9:
+    image: ubuntu/bind9:latest
+    restart: unless-stopped
+    environment:
+      - BIND9_USER=root
+      - TZ=Europe/Amsterdam
+    volumes:
+      - type: volume
+        source: BIND9
+        target: /etc/bind
+
 volumes:
+  BIND9:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.10.1.7,rw
+      device: ":/mnt/Array/Docker/BIND9"
   Homepage:
     driver: local
     driver_opts:
