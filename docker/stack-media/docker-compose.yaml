@@ -16,7 +16,7 @@ services:
       - /mnt/Media/radarr:/movies
     ports:
       - "7878:7878"
-      restart: always
+    restart: always
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
