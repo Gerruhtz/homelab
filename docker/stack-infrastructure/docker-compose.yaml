@@ -76,6 +76,8 @@ services:
     environment:
       - TZ=Europe/Amsterdam
       - DNSMASQ_USER=root
+      - PUID=1000
+      - PGID=1000
     volumes:
       - type: volume
         source: PiHole
