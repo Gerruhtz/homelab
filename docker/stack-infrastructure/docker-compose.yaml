@@ -75,6 +75,7 @@ services:
       - "88:80"
     environment:
       - TZ=Europe/Amsterdam
+      - DNSMASQ_USER=root
     volumes:
       - type: volume
         source: PiHole
