@@ -16,6 +16,12 @@
       become: true
       ansible.builtin.shell: /home/tadmin/install_docker.sh
 
-    - name: Mount Media share
+    - name: Create /mnt/Media directory
       become: true
-      ansible.builtin.shell: sudo mkdir /mnt/Media && echo "10.10.1.7:/mnt/Array/Media /mnt/Media nfs defaults 0 0" >> ~/.ssh/authorized_keys
+      ansible.builtin.file:
+        path: /mnt/Media
+        state: directory
+
+    - name: Mount NFS share
+      become: true
+      ansible.builtin.shell: echo "10.10.1.7:/mnt/Array/Media /mnt/Media nfs defaults 0 0" >> /etc/fstab && sudo systemctl daemon-reload && sudo mount -a
