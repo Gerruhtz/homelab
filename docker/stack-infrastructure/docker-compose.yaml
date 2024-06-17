@@ -74,6 +74,8 @@ services:
     environment:
       - BIND9_USER=root
       - TZ=Europe/Amsterdam
+    ports:
+      "30053:53"
     volumes:
       - type: volume
         source: BIND9
