@@ -68,24 +68,6 @@ services:
         target: /data/db
     restart: unless-stopped
 
-  pihole:
-    image: pihole/pihole:latest
-    ports:
-      - "53:53"
-      - "88:80"
-    environment:
-      - TZ=Europe/Amsterdam
-      - DNSMASQ_USER=root
-      - PIHOLE_UID=0
-    volumes:
-      - type: volume
-        source: PiHole
-        target: /etc/pihole
-      - type: volume
-        source: PiHole
-        target: /etc/dnsmasq.d
-    restart: unless-stopped
-
 volumes:
   Homepage:
     driver: local
@@ -111,9 +93,3 @@ volumes:
       type: nfs
       o: addr=10.10.1.7,rw
       device: ":/mnt/Array/Docker/Unifi-DB"
-  PiHole:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=10.10.1.7,rw
-      device: ":/mnt/Array/Docker/PiHole"
