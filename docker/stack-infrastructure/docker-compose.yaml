@@ -64,31 +64,13 @@ services:
         target: /data/db
     restart: unless-stopped
 
-  adguardhome:
-    image: adguard/adguardhome
-    ports:
-      - "53:53"
-      - "784:784"
-      - "853:853"
-      - "3300:3000"
-      - "88:80"
-      - "4443:443"
-    volumes:
-      - type: volume
-        source: Adguard
-        target: /opt/adguardhome/work
-      - type: volume
-        source: Adguard
-        target: /opt/adguardhome/conf
-    restart: unless-stopped
-
 volumes:
-  Adguard:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=10.10.1.7,rw
-      device: ":/mnt/Array/Docker/Adguard"
+  # Adguard:
+  #   driver: local
+  #   driver_opts:
+  #     type: nfs
+  #     o: addr=10.10.1.7,rw
+  #     device: ":/mnt/Array/Docker/Adguard"
   Homepage:
     driver: local
     driver_opts:
