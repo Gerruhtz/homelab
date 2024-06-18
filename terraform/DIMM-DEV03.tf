@@ -6,6 +6,7 @@ resource "proxmox_vm_qemu" "DIMM-DEV03" {
     vmid = 2023
     ciuser = var.CIUSER
     tags = "tf,ansi,ctrl,dev"
+    vm_state = "stopped"
 
 
     # Cloning information
