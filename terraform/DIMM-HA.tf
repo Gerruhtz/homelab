@@ -9,7 +9,6 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
     onboot = true
     tags = "tf"
 
-
     # Cloning information
     #clone = "TEMP-UBNT-2404-VID10"
     #full_clone = true

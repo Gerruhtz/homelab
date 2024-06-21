@@ -6,7 +6,7 @@ resource "proxmox_vm_qemu" "DIMM-SWARM04" {
     vmid = 1024
     ciuser = var.CIUSER
     tags = "tf,ansi,node"
-
+    onboot = true
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID10"

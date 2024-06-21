@@ -7,7 +7,7 @@ resource "proxmox_vm_qemu" "DIMM-DEV01" {
     ciuser = var.CIUSER
     tags = "tf,ansi,ctrl,dev"
     vm_state = "stopped"
-
+    onboot = false
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID20"
