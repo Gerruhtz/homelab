@@ -39,7 +39,7 @@ terraform.rc
 # Ansible files and folders
 /ansible/group_vars/
 /ansible/host_vars/
-/ansible/inventory.yaml
+#/ansible/inventory.yaml
 /ansible/ansible.cfg
 
 # Terraform files and folders
