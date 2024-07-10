@@ -1,0 +1,35 @@
+VID10:
+  hosts:
+    DIMM-AUTO:
+      ansible_host: 10.10.10.9
+    DIMM-SWARM01:
+      ansible_host: 10.10.10.21
+    DIMM-SWARM02:
+      ansible_host: 10.10.10.22
+    DIMM-SWARM03:
+      ansible_host: 10.10.10.23
+    DIMM-SWARM04:
+      ansible_host: 10.10.10.24
+    DIMM-DEV01:
+      ansible_host: 10.10.20.21
+    DIMM-DEV02:
+      ansible_host: 10.10.20.22
+    DIMM-DEV03:
+      ansible_host: 10.10.20.23
+
+DOCKER:
+  hosts:
+    DIMM-SWARM01:
+      ansible_host: 10.10.10.21
+    DIMM-SWARM02:
+      ansible_host: 10.10.10.22
+    DIMM-SWARM03:
+      ansible_host: 10.10.10.23
+    DIMM-SWARM04:
+      ansible_host: 10.10.10.24
+    DIMM-DEV01:
+      ansible_host: 10.10.20.21
+    DIMM-DEV02:
+      ansible_host: 10.10.20.22
+    DIMM-DEV03:
+      ansible_host: 10.10.20.23
