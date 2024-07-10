@@ -5,7 +5,7 @@ resource "proxmox_vm_qemu" "DIMM-AUTO" {
     target_node = "DIMM-HV01"
     vmid = 1009
     ciuser = var.CIUSER
-    tags = "tf"
+    tags = "tf,ansi"
     onboot = true
 
     # Cloning information
