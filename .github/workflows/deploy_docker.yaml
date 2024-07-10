@@ -26,8 +26,8 @@ jobs:
     terraform:
         name: Deploy infrastructure
         runs-on: 'self-hosted'
+        needs: auto-pull
         steps:
-
             - name: Terraform Plan
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform plan -input=false

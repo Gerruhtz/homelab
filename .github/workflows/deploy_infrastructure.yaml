@@ -28,6 +28,7 @@ jobs:
     terraform:
         name: Deploy infrastructure
         runs-on: 'self-hosted'
+        needs: auto-pull
         steps:
             - name: Checkout
               uses: actions/checkout@v4
