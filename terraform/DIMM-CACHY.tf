@@ -52,8 +52,8 @@ resource "proxmox_vm_qemu" "DIMM-CACHY" {
     network {
         model = "virtio"
         bridge = "vmbr1"
-        tag = 20
+        tag = 10
     }
-    ipconfig0 = "ip=10.10.20.10/24,gw=10.10.20.1"
+    ipconfig0 = "ip=10.10.10.7/24,gw=10.10.10.1"
     sshkeys = var.PUBLIC_SSH_KEY
 }

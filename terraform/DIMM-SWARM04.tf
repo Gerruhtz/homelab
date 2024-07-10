@@ -16,8 +16,8 @@ resource "proxmox_vm_qemu" "DIMM-SWARM04" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 2
-    memory = 4096
+    cores = 1
+    memory = 2048
     scsihw = "virtio-scsi-single"
 
     # Disk information
