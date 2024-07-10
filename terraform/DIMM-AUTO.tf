@@ -16,7 +16,7 @@ resource "proxmox_vm_qemu" "DIMM-AUTO" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 2
+    cores = 1
     memory = 4096
     scsihw = "virtio-scsi-single"
 

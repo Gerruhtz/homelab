@@ -17,8 +17,8 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 2
-    memory = 4096
+    cores = 1
+    memory = 2048
     scsihw = "virtio-scsi-pci"
     bios = "ovmf"
 
