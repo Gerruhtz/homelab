@@ -33,7 +33,6 @@ resource "proxmox_vm_qemu" "DIMM-HA" {
                     discard = true
                     backup = true
                     cache = "writethrough"
-                    iothread = true
                 }
             }
         }
