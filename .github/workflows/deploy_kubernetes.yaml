@@ -1,19 +1,16 @@
 # GitHub Actions workflow to run 'terraform apply' after push to main
-# Only runs when a change to .tf files is pushed to main
+# Only runs when a change to Kubernetes files is pushed to main
 
-name: "Deploy infrastructure"
+name: "Deploy Docker server"
 
 on:
   push:
     branches:
       - main
     paths:
-      - '**.tf'
-      - '!**/DIMM-SWARM*.tf'
-      - '!**/DIMM-K8S*.tf'
+      - '**/DIMM-K8S*.tf'
 
 env:
-  WORKING_DIRECTORY: ${{ vars.LOCAL_WORKING_DIRECTORY }}
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
   ANSI_DIRECTORY: ${{ vars.ANSI_WORKING_DIRECTORY }}
 
@@ -25,15 +22,12 @@ jobs:
         - uses: actions/checkout@v4
         - run: git pull
           working-directory: ${{ vars.LOCAL_WORKING_DIRECTORY }}
-
+          
     terraform:
         name: Deploy infrastructure
         runs-on: 'self-hosted'
         needs: auto-pull
         steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
             - name: Terraform Plan
               working-directory: ${{ vars.TF_WORKING_DIRECTORY }}
               run: terraform plan -input=false
@@ -44,7 +38,7 @@ jobs:
               run: terraform apply -auto-approve -input=false
 
     ansible:
-      name: Configure infrastructure
+      name: Configure Kubernetes node
       runs-on: 'self-hosted'
       needs: terraform
       steps:
@@ -54,3 +48,7 @@ jobs:
             - name: Run Ansible playbook 'base_config.yaml'
               working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
               run: ansible-playbook base_config.yaml -i inventory.yaml
+
+            - name: Run Ansible playbook 'base_kubernetes.yaml'
+              working-directory: ${{ vars.ANSI_WORKING_DIRECTORY }}
+              run: ansible-playbook base_kubernetes.yaml -i inventory.yaml

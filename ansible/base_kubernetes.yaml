@@ -1,0 +1,12 @@
+- name: Install Kubernetes
+  hosts: KUBERNETES
+  tasks:
+  
+    - name: Install needed packages
+      become: true
+      ansible.builtin.apt:
+        pkg:
+        - wget
+        - curl
+        - nano
+        - openssl
