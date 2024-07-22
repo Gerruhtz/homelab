@@ -21,6 +21,6 @@ sudo tee /etc/apt/sources.list.d/hashicorp.list
 
 # Update package list, install Terraform and enable tab completion
 sudo apt update 
-sudo apt install -y terraform
+sudo apt install -y terraform packer
 touch ~/.bashrsc
 terraform -install-autocomplete
