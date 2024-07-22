@@ -10,24 +10,9 @@ VID10:
       ansible_host: 10.10.10.23
     DIMM-SWARM04:
       ansible_host: 10.10.10.24
-    DIMM-K8S-01:
-      ansible_host: 10.10.10.51
-    DIMM-K8S-02:
-      ansible_host: 10.10.10.52
-    DIMM-K8S-03:
-      ansible_host: 10.10.10.53
 
 VID20:
   hosts:
-
-KUBERNETES:
-  hosts:
-    DIMM-K8S-01:
-      ansible_host: 10.10.10.51
-    DIMM-K8S-02:
-      ansible_host: 10.10.10.52
-    DIMM-K8S-03:
-      ansible_host: 10.10.10.53
 
 DOCKER:
   hosts:
