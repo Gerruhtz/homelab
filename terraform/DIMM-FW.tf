@@ -6,6 +6,7 @@ resource "proxmox_vm_qemu" "DIMM-FW" {
     vmid = 101
     onboot = true
     agent = 1
+    tags = "tf"
     machine = "q35"
     skip_ipv6 = true
 
