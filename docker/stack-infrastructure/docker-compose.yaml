@@ -12,21 +12,6 @@ services:
       - "3333:3000"
     restart: always
 
-  nginx:
-    image: jc21/nginx-proxy-manager:latest
-    volumes:
-      - type: volume
-        source: Nginx
-        target: /data
-      - type: volume
-        source: Nginx
-        target: /etc/letsencrypt
-    ports:
-      - "443:443"
-      - "80:80"
-      - "81:81"
-    restart: always
-
   unifi:
     image: ghcr.io/goofball222/unifi:latest
     links:
@@ -65,24 +50,12 @@ services:
     restart: unless-stopped
 
 volumes:
-  # Adguard:
-  #   driver: local
-  #   driver_opts:
-  #     type: nfs
-  #     o: addr=10.10.1.7,rw
-  #     device: ":/mnt/Array/Docker/Adguard"
   Homepage:
     driver: local
     driver_opts:
       type: nfs
       o: addr=10.10.1.7,rw
       device: ":/mnt/Array/Docker/Homepage"
-  Nginx:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=10.10.1.7,rw
-      device: ":/mnt/Array/Docker/Nginx"
   Unifi:
     driver: local
     driver_opts:
