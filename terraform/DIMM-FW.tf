@@ -1,23 +1,24 @@
-resource "proxmox_vm_qemu" "DIMM-DOCKER" {
+resource "proxmox_vm_qemu" "DIMM-FW" {
     
     # General information
-    name = "DIMM-DOCKER"
+    name = "DIMM-FW"
     target_node = "DIMM-HV01"
-    vmid = 1010
-    ciuser = var.CIUSER
-    tags = "tf,ansi"
+    vmid = 101
     onboot = true
+    agent = 1
+    machine = "q35"
+    skip_ipv6 = true
 
     # Cloning information
-    clone = "TEMP-UBNT-2404-VID10"
-    full_clone = true
-    os_type = "cloud-init"
+    # clone = "TEMP-UBNT-2404-VID10"
+    full_clone = false
+    # os_type = "cloud-init"
 
     # Hardware information
     cpu = "host"
     sockets = 1
     cores = 4
-    memory = 8192
+    memory = 4096
     scsihw = "virtio-scsi-single"
 
     # Disk information
@@ -27,17 +28,11 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER" {
                 disk {
                     storage = "local-btrfs"
                     size = 64
-                    emulatessd = true
+                    emulatessd = false
                     discard = true
                     backup = true
                     iothread = true
-                }
-            }
-        }
-        ide {
-            ide0 {
-                cloudinit {
-                    storage = "local-btrfs"
+                    replicate = true
                 }
             }
         }
@@ -47,8 +42,15 @@ resource "proxmox_vm_qemu" "DIMM-DOCKER" {
     network {
         model = "virtio"
         bridge = "vmbr_lan"
-        tag = 10
+        firewall = true
     }
-    ipconfig0 = "ip=10.10.10.10/24,gw=10.10.10.1"
-    sshkeys = var.PUBLIC_SSH_KEY
+
+    network {
+        model = "virtio"
+        bridge = "vmbr_wan"
+        firewall = true   
+    }
+
+    #ipconfig0 = "ip=10.10.10.10/24,gw=10.10.10.1"
+    #sshkeys = var.PUBLIC_SSH_KEY
 }

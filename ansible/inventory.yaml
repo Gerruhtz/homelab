@@ -10,6 +10,8 @@ VID10:
       ansible_host: 10.10.10.23
     DIMM-SWARM04:
       ansible_host: 10.10.10.24
+    DIMM-DOCKER:
+      ansible_host: 10.10.10.10
 
 VID20:
   hosts:
