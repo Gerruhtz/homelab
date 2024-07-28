@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - '**/DIMM-SWARM*.tf'
+      - '**/DIMM-DOCKER.tf'
 
 env:
   TF_DIRECTORY: ${{ vars.TF_WORKING_DIRECTORY }}
