@@ -46,7 +46,7 @@ resource "proxmox_vm_qemu" "DIMM-SWARM02" {
     # Networking information
     network {
         model = "virtio"
-        bridge = "vmbr1"
+        bridge = "vmbr_lan"
         tag = 10
     }
     ipconfig0 = "ip=10.10.10.22/24,gw=10.10.10.1"

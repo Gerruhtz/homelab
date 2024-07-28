@@ -63,7 +63,7 @@ resource "proxmox_vm_qemu" "DIMM-NAS02" {
     # Networking information
     network {
         model = "virtio"
-        bridge = "vmbr0"
+        bridge = "vmbr_lan"
         firewall = true
     }
     ipconfig0 = "ip=10.10.1.7/24,gw=10.10.10.1"
