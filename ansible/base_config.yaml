@@ -10,11 +10,12 @@
       become: true
       ansible.builtin.apt:
         update_cache: yes
+        upgrade: "dist"
 
     - name: Installing packages
       become: true
       ansible.builtin.apt:
-        pkg:
+        name:
         - nano
         - git
         - qemu-guest-agent
