@@ -1,0 +1,11 @@
+- name: Maintenance for Linux machines
+  hosts: all
+  tasks:
+
+    - name: Update, upgrade and clean up packages
+      become: true
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: "dist"
+        clean: true
+        autoremove: true
