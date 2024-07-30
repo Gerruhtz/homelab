@@ -12,6 +12,8 @@ VID10:
       ansible_host: 10.10.10.24
     DIMM-DOCKER:
       ansible_host: 10.10.10.10
+    DIMM-TEST:
+      ansible_host: 10.10.10.254
 
 VID20:
   hosts:
