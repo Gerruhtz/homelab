@@ -1,11 +1,11 @@
-resource "proxmox_vm_qemu" "DIMM-SWARM03" {
+resource "proxmox_vm_qemu" "DIMM-TEST" {
     
     # General information
-    name = "DIMM-SWARM03"
+    name = "DIMM-TEST"
     target_node = "DIMM-HV01"
-    vmid = 1023
+    vmid = 999
     ciuser = var.CIUSER
-    tags = "tf,ansi,node"
+    tags = "tf,ansi"
     onboot = true
 
     # Cloning information
@@ -16,8 +16,8 @@ resource "proxmox_vm_qemu" "DIMM-SWARM03" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 1
-    memory = 2048
+    cores = 4
+    memory = 8192
     scsihw = "virtio-scsi-single"
 
     # Disk information
@@ -47,8 +47,6 @@ resource "proxmox_vm_qemu" "DIMM-SWARM03" {
     network {
         model = "virtio"
         bridge = "vmbr_lan"
-        tag = 10
     }
-    ipconfig0 = "ip=10.10.10.23/24,gw=10.10.10.1"
     sshkeys = var.PUBLIC_SSH_KEY
 }
