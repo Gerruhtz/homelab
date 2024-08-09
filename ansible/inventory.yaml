@@ -4,6 +4,8 @@ VID10:
       ansible_host: 10.10.10.9
     DIMM-DOCKER:
       ansible_host: 10.10.10.10
+    DIMM-ARCADE:
+      ansible_host: 10.10.10.20
 
 VID20:
   hosts:
