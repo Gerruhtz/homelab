@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "DIMM-MINECRAFT" {
     cpu = "host"
     sockets = 1
     cores = 8
-    memory = 16384
+    memory = 32768
     scsihw = "virtio-scsi-single"
 
     # Disk information
