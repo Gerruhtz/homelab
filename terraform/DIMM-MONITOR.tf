@@ -7,6 +7,7 @@ resource "proxmox_vm_qemu" "DIMM-MONITOR" {
     ciuser = var.CIUSER
     tags = "tf,ansi"
     onboot = true
+    agent = 1
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID1"
