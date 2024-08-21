@@ -14,6 +14,8 @@ VID20:
   hosts:
     DIMM-MINECRAFT:
       ansible_host: 10.10.20.10
+    DIMM-NIXOS:
+      ansible_host: 10.10.20.20
 
 DOCKER:
   hosts:
