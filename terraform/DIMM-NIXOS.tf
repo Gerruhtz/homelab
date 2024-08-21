@@ -36,7 +36,7 @@ resource "proxmox_vm_qemu" "DIMM-NIXOS" {
             }
             scsi1 {
                 cdrom {
-                    iso = "local-btrfs:iso/latest-nixos-gnome-x86-linux.iso"
+                    iso = "local-btrfs:iso/latest-nixos-gnome-x86_64-linux.iso"
                 }
             }
         }
