@@ -16,8 +16,8 @@ resource "proxmox_vm_qemu" "DIMM-NAS02" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 8
-    memory = 32768
+    cores = 4
+    memory = 16384
     scsihw = "virtio-scsi-single"
     boot = "order=scsi0;net0"
 
