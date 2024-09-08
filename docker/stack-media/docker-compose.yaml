@@ -89,7 +89,7 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: jellyseerr
+        source: Jellyseerr
         target: /app/config
 
 volumes:
