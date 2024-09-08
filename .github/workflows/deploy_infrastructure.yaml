@@ -9,8 +9,6 @@ on:
       - main
     paths:
       - '**.tf'
-      - '!**/DIMM-SWARM*.tf'
-      - '!**/DIMM-K8S*.tf'
 
 env:
   WORKING_DIRECTORY: ${{ vars.LOCAL_WORKING_DIRECTORY }}
