@@ -8,6 +8,7 @@ resource "proxmox_vm_qemu" "DIMM-MINECRAFT" {
     tags = "tf,ansi"
     onboot = true
     agent = 1
+    vm_state = "stopped"
 
     # Cloning information
     clone = "TEMP-UBNT-2404-VID20"
