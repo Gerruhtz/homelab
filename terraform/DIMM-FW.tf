@@ -1,57 +1,38 @@
-resource "proxmox_vm_qemu" "DIMM-FW" {
-    
-    # General information
-    name = "DIMM-FW"
-    target_node = "DIMM-HV01"
-    vmid = 101
-    onboot = true
-    agent = 1
-    tags = "tf"
-    machine = "q35"
-    skip_ipv6 = true
+resource "proxmox_virtual_environment_vm" "DIMM-FW" {
 
-    # Cloning information
-    # clone = "TEMP-UBNT-2404-VID10"
-    full_clone = false
-    # os_type = "cloud-init"
+    # General information
+    node_name = "DIMM-HV01"
+    name = "DIMM-FW"
+    vm_id = 101
+    tags = ["tf"]
+    on_boot = true
+    agent { enabled = true }
+    operating_system { type = "l26" }
+    machine = "q35"
 
     # Hardware information
-    cpu = "host"
-    sockets = 1
-    cores = 4
-    memory = 4096
-    scsihw = "virtio-scsi-single"
+    cpu {
+        cores = 4
+        type = "x86-64-v2-AES"
+    }
+    memory { dedicated = 4096 }
+    scsi_hardware = "virtio-scsi-single"
 
     # Disk information
-    disks {
-        scsi {
-            scsi0 {
-                disk {
-                    storage = "local-btrfs"
-                    size = 64
-                    emulatessd = false
-                    discard = true
-                    backup = true
-                    iothread = true
-                    replicate = true
-                }
-            }
-        }
+    disk {
+        interface = "scsi0"
+        backup = true
+        datastore_id = "local-btrfs"
+        discard = "on"
+        file_format = "raw"
+        size = 64
     }
-    
+
     # Networking information
-    network {
-        model = "virtio"
-        bridge = "vmbr_lan"
-        firewall = true
+    network_device {
+      bridge = "vmbr_lan"
     }
-
-    network {
-        model = "virtio"
+    network_device {
         bridge = "vmbr_wan"
-        firewall = true   
     }
-
-    #ipconfig0 = "ip=10.10.10.10/24,gw=10.10.10.1"
-    #sshkeys = var.PUBLIC_SSH_KEY
 }

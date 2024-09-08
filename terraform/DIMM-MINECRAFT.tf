@@ -1,56 +1,54 @@
-resource "proxmox_vm_qemu" "DIMM-MINECRAFT" {
-    
-    # General information
-    name = "DIMM-MINECRAFT"
-    target_node = "DIMM-HV01"
-    vmid = 2010
-    ciuser = var.CIUSER
-    tags = "tf,ansi"
-    onboot = true
-    agent = 1
-    vm_state = "stopped"
+resource "proxmox_virtual_environment_vm" "DIMM-MINECRAFT" {
 
-    # Cloning information
-    clone = "TEMP-UBNT-2404-VID20"
-    full_clone = true
-    os_type = "cloud-init"
+    # General information
+    node_name = "DIMM-HV01"
+    name = "DIMM-MINECRAFT"
+    vm_id = 2010
+    tags = ["tf", "ansi"]
+    on_boot = true
+    agent { enabled = true }
+    operating_system { type = "l26" }
+    started = false
 
     # Hardware information
-    cpu = "host"
-    sockets = 1
-    cores = 8
-    memory = 32768
-    scsihw = "virtio-scsi-single"
+    cpu {
+        cores = 8
+        type = "x86-64-v2-AES"
+    }
+    memory { dedicated = 32768 }
+    scsi_hardware = "virtio-scsi-single"
 
     # Disk information
-    disks {
-        scsi {
-            scsi0 {
-                disk {
-                    storage = "local-btrfs"
-                    size = 128
-                    emulatessd = true
-                    discard = true
-                    backup = true
-                    iothread = true
-                }
-            }
-        }
-        ide {
-            ide0 {
-                cloudinit {
-                    storage = "local-btrfs"
-                }
-            }
-        }
+    disk {
+        interface = "scsi0"
+        backup = true
+        datastore_id = "local-btrfs"
+        discard = "on"
+        ssd = true
+        file_format = "raw"
+        size = 128
     }
-    
+
     # Networking information
-    network {
-        model = "virtio"
-        bridge = "vmbr_lan"
-        tag = 20
+    network_device {
+      bridge = "vmbr_lan"
+      vlan_id = 20
     }
-    ipconfig0 = "ip=10.10.20.10/24,gw=10.10.20.1"
-    sshkeys = var.PUBLIC_SSH_KEY
+
+    # Cloud-init information
+    initialization {
+      datastore_id = "local-btrfs"
+      interface = "ide0"
+      dns { servers = ["10.10.20.1"] }
+      ip_config {
+        ipv4 {
+            address = "10.10.20.10/24"
+            gateway = "10.10.20.1"
+        }
+      }
+      user_account {
+        username = "tadmin"
+        keys = [trimspace(data.local_file.public_ssh_key.content)]
+      }
+    }
 }

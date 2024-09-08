@@ -1,56 +1,61 @@
-resource "proxmox_vm_qemu" "DIMM-HA" {
+resource "proxmox_virtual_environment_vm" "DIMM-HA" {
 
     # General information
+    node_name = "DIMM-HV01"
     name = "DIMM-HA"
-    target_node = "DIMM-HV01"
-    vmid = 1006
-    ciuser = var.CIUSER
-    agent = 1
-    onboot = true
-    tags = "tf"
-
-    # Cloning information
-    #clone = "TEMP-UBNT-2404-VID10"
-    #full_clone = true
-    #os_type = "cloud-init"
-
-    # Hardware information
-    cpu = "host"
-    sockets = 1
-    cores = 1
-    memory = 2048
-    scsihw = "virtio-scsi-pci"
+    vm_id = 1006
+    tags = ["tf"]
+    on_boot = true
+    agent { enabled = true }
+    operating_system { type = "l26" }
     bios = "ovmf"
 
-     # Disk information
-    disks {
-        scsi {
-            scsi0 {
-                disk {
-                    storage = "local-btrfs"
-                    size = 32
-                    emulatessd = true
-                    discard = true
-                    backup = true
-                    cache = "writethrough"
-                }
-            }
-        }
-        ide {
-            ide0 {
-                cloudinit {
-                    storage = "local-btrfs"
-                }
-            }
-        }
+    # Hardware information
+    cpu {
+        cores = 1
+        type = "x86-64-v2-AES"
     }
-    
+    memory { dedicated = 2048 }
+    scsi_hardware = "virtio-scsi-pci"
+
+    # Disk information
+    disk {
+        interface = "scsi0"
+        backup = true
+        cache = "writethrough"
+        datastore_id = "local-btrfs"
+        discard = "on"
+        ssd = true
+        file_format = "raw"
+        size = 32
+    }
+    efi_disk {
+      datastore_id = "local-btrfs"
+      file_format = "raw"
+      pre_enrolled_keys = false
+      type = "4m"
+    }
+
     # Networking information
-    network {
-        model = "virtio"
-        bridge = "vmbr_lan"
-        tag = 10
+    network_device {
+      bridge = "vmbr_lan"
+      vlan_id = 10
     }
-    ipconfig0 = "ip=10.10.10.6/24,gw=10.10.10.1"
-    sshkeys = var.PUBLIC_SSH_KEY
+
+    # Cloud-init information
+    initialization {
+      datastore_id = "local-btrfs"
+      interface = "ide0"
+      dns { servers = ["10.10.10.1"] }
+      ip_config {
+        ipv4 {
+            address = "10.10.10.6/24"
+            gateway = "10.10.10.1"
+        }
+      }
+      user_account {
+        username = "tadmin"
+        keys = [trimspace(data.local_file.public_ssh_key.content)]
+      }
+    }
 }
