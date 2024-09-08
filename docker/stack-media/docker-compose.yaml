@@ -82,22 +82,15 @@ services:
       - "6881:6881"
     restart: always
 
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
     environment:
-      - PUID=1000
-      - PGID=1000
+      - LOG_LEVEL = debug
       - TZ=Europe/Amsterdam
     volumes:
       - type: volume
-        source: Jellyfin
-        target: /config
-      - /mnt/Media/radarr:/data/movies
-      - /mnt/Media/sonarr:/data/tvshows
-    ports:
-      - "8096:8096"
-    restart: always
+        source: jellyseerr
+        target: /app/config
 
 volumes:
   Radarr:
@@ -130,9 +123,9 @@ volumes:
       type: nfs
       o: addr=10.10.1.7,rw
       device: ":/mnt/Array/Docker/QBit"
-  Jellyfin:
+  Jellyseerr:
     driver: local
     driver_opts:
       type: nfs
       o: addr=10.10.1.7,rw
-      device: ":/mnt/Array/Docker/Jellyfin"
+      device: ":/mnt/Array/Docker/Jellyseerr"
