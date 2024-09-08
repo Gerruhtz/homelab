@@ -1,5 +1,4 @@
 # Docker Compose file deploying media services
-version: "3.8"
 services:
 
   radarr:
@@ -12,7 +11,7 @@ services:
       - type: volume
         source: Radarr
         target: /config
-      - /mnt/Media/radarr:/movies
+      - /mnt/Array/Media/radarr:/movies
     ports:
       - "7878:7878"
     restart: always
@@ -27,7 +26,7 @@ services:
       - type: volume
         source: Sonarr
         target: /config
-      - /mnt/Media/sonarr:/tv
+      - /mnt/Array/Media/sonarr:/tv
     ports:
       - "8989:8989"
     restart: always
@@ -56,8 +55,8 @@ services:
       - type: volume
         source: Bazarr
         target: /config
-      - /mnt/Media/radarr:/movies
-      - /mnt/Media/sonarr:/tv
+      - /mnt/Array/Media/radarr:/movies
+      - /mnt/Array/Media/sonarr:/tv
     ports:
       - "6767:6767"
     restart: always
@@ -74,9 +73,9 @@ services:
       - type: volume
         source: QBit
         target: /config
-      - /mnt/Media/downloads:/downloads
-      - /mnt/Media/radarr:/movies
-      - /mnt/Media/sonarr:/tv
+      - /mnt/Array/Media/downloads:/downloads
+      - /mnt/Array/Media/radarr:/movies
+      - /mnt/Array/Media/sonarr:/tv
     ports:
       - "8888:8080"
       - "6881:6881"
