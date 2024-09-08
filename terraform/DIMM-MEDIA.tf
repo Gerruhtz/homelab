@@ -17,8 +17,8 @@ resource "proxmox_vm_qemu" "DIMM-MEDIA" {
     # Hardware information
     cpu = "host"
     sockets = 1
-    cores = 4
-    memory = 8192
+    cores = 8
+    memory = 16384
     scsihw = "virtio-scsi-single"
 
     # Disk information
