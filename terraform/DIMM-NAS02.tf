@@ -46,6 +46,7 @@ resource "proxmox_virtual_environment_vm" "DIMM-NAS02" {
       }
       user_account {
         keys = [trimspace(data.local_file.public_ssh_key.content)]
+        username = " "
       }
     }
 }
