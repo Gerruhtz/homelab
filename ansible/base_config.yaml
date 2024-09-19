@@ -2,10 +2,6 @@
   hosts: VID10:VID20
   tasks:
 
-    - name: Add Cloudflare DNS server
-      become: true
-      ansible.builtin.shell: echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf /dev/null
-
     - name: Updating APT cache
       become: true
       ansible.builtin.apt:

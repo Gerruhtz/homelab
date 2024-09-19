@@ -32,7 +32,7 @@ resource "proxmox_virtual_environment_vm" "DIMM-MEDIA" {
         discard = "on"
         ssd = true
         file_format = "raw"
-        size = 32
+        size = 128
     }
 
     # Networking information
