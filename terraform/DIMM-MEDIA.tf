@@ -16,7 +16,7 @@ resource "proxmox_virtual_environment_vm" "DIMM-MEDIA" {
         cores = 4
         type = "x86-64-v2-AES"
     }
-    memory { dedicated = 4096 }
+    memory { dedicated = 8192 }
     scsi_hardware = "virtio-scsi-single"
     hostpci {
       device = "hostpci0"
