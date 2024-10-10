@@ -11,10 +11,10 @@ resource "proxmox_virtual_environment_vm" "DIMM-AUTO" {
 
     # Hardware information
     cpu {
-        cores = 4
+        cores = 8
         type = "x86-64-v2-AES"
     }
-    memory { dedicated = 4096 }
+    memory { dedicated = 16384 }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
