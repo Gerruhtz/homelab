@@ -1,8 +1,8 @@
-resource "proxmox_virtual_environment_vm" "DIMM-FW" {
+resource "proxmox_virtual_environment_vm" "opnsense" {
 
     # General information
-    node_name = "DIMM-HV01"
-    name = "DIMM-FW"
+    node_name = "proxmox"
+    name = "opnsense"
     vm_id = 101
     tags = ["tf"]
     on_boot = true

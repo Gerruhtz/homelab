@@ -1,39 +1,39 @@
-resource "proxmox_virtual_environment_vm" "DIMM-HA" {
+resource "proxmox_virtual_environment_vm" "media" {
 
     # General information
-    node_name = "DIMM-HV01"
-    name = "DIMM-HA"
-    vm_id = 1006
-    tags = ["tf"]
+    node_name = "proxmox"
+    name = "media"
+    vm_id = 1011
+    tags = ["tf", "ansi"]
     on_boot = true
     agent { enabled = true }
-    operating_system { type = "l26" }
-    bios = "ovmf"
+    operating_system {
+      type = "l26"
+    }
 
     # Hardware information
     cpu {
-        cores = 1
+        cores = 4
         type = "x86-64-v2-AES"
     }
-    memory { dedicated = 2048 }
-    scsi_hardware = "virtio-scsi-pci"
+    memory { dedicated = 8192 }
+    scsi_hardware = "virtio-scsi-single"
+    hostpci {
+      device = "hostpci0"
+      mapping = "RTX-A2000-12GB"
+      pcie = true
+      xvga = true
+    }
 
     # Disk information
     disk {
         interface = "scsi0"
         backup = true
-        cache = "writethrough"
         datastore_id = "local-btrfs"
         discard = "on"
         ssd = true
         file_format = "raw"
-        size = 32
-    }
-    efi_disk {
-      datastore_id = "local-btrfs"
-      file_format = "raw"
-      pre_enrolled_keys = false
-      type = "4m"
+        size = 128
     }
 
     # Networking information
@@ -46,10 +46,12 @@ resource "proxmox_virtual_environment_vm" "DIMM-HA" {
     initialization {
       datastore_id = "local-btrfs"
       interface = "ide0"
-      dns { servers = ["10.10.10.1"] }
+      dns {
+        servers = ["10.10.10.1"]
+      }
       ip_config {
         ipv4 {
-            address = "10.10.10.6/24"
+            address = "10.10.10.11/24"
             gateway = "10.10.10.1"
         }
       }
@@ -57,5 +59,11 @@ resource "proxmox_virtual_environment_vm" "DIMM-HA" {
         username = "tadmin"
         keys = [trimspace(data.local_file.public_ssh_key.content)]
       }
+    }
+
+    # Cloning information
+    clone {
+        vm_id = 9010
+        datastore_id = "local-btrfs"
     }
 }

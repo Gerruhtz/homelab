@@ -1,8 +1,8 @@
-resource "proxmox_virtual_environment_vm" "DIMM-AUTO" {
+resource "proxmox_virtual_environment_vm" "automation" {
 
     # General information
-    node_name = "DIMM-HV01"
-    name = "DIMM-AUTO"
+    node_name = "proxmox"
+    name = "automation"
     vm_id = 1009
     tags = ["tf", "ansi"]
     on_boot = true
@@ -11,10 +11,10 @@ resource "proxmox_virtual_environment_vm" "DIMM-AUTO" {
 
     # Hardware information
     cpu {
-        cores = 2
+        cores = 6
         type = "x86-64-v2-AES"
     }
-    memory { dedicated = 2048 }
+    memory { dedicated = 16384 }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
