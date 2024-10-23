@@ -11,10 +11,10 @@ resource "proxmox_virtual_environment_vm" "automation" {
 
     # Hardware information
     cpu {
-        cores = 6
+        cores = 4
         type = "x86-64-v2-AES"
     }
-    memory { dedicated = 16384 }
+    memory { dedicated = 8192 }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
