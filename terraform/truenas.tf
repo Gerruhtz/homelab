@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
 
     # General information
     node_name = "proxmox"
-    name = "truenas"
+    name = "TrueNAS"
     vm_id = 107
     tags = ["tf"]
     on_boot = true
@@ -26,6 +26,27 @@ resource "proxmox_virtual_environment_vm" "truenas" {
         ssd = true
         file_format = "raw"
         size = 64
+    }
+    disk {
+      datastore_id = ""
+      interface = "scsi1"
+      path_in_datastore = "/dev/disk/by-id/ata-CT1000BX500SSD1_2340E87C7E4D"
+      backup = false
+      size = 931
+    }
+    disk {
+      datastore_id = ""
+      interface = "scsi2"
+      path_in_datastore = "/dev/disk/by-id/ata-CT1000BX500SSD1_2340E87C7E24"
+      backup = false
+      size = 931
+    }
+    disk {
+      datastore_id = ""
+      interface = "scsi3"
+      path_in_datastore = "/dev/disk/by-id/ata-CT1000BX500SSD1_2340E87C7E3D"
+      backup = false
+      size = 931
     }
 
     # Networking information

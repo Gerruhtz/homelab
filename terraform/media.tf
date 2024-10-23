@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "media" {
 
     # General information
     node_name = "proxmox"
-    name = "media"
+    name = "Media"
     vm_id = 1011
     tags = ["tf", "ansi"]
     on_boot = true
@@ -10,6 +10,7 @@ resource "proxmox_virtual_environment_vm" "media" {
     operating_system {
       type = "l26"
     }
+    machine = "q35"
 
     # Hardware information
     cpu {
@@ -20,7 +21,7 @@ resource "proxmox_virtual_environment_vm" "media" {
     scsi_hardware = "virtio-scsi-single"
     hostpci {
       device = "hostpci0"
-      mapping = "RTX-A2000-12GB"
+      mapping = "RTX-A2000"
       pcie = true
       xvga = true
     }
@@ -62,8 +63,8 @@ resource "proxmox_virtual_environment_vm" "media" {
     }
 
     # Cloning information
-    clone {
-        vm_id = 9010
-        datastore_id = "local-btrfs"
-    }
+    #clone {
+    #    vm_id = 9010
+    #    datastore_id = "local-btrfs"
+    #}
 }

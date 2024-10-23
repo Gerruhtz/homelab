@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "automation" {
 
     # General information
     node_name = "proxmox"
-    name = "automation"
+    name = "Automation"
     vm_id = 1009
     tags = ["tf", "ansi"]
     on_boot = true

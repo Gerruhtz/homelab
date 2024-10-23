@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "docker" {
 
     # General information
     node_name = "proxmox"
-    name = "docker"
+    name = "Docker"
     vm_id = 1010
     tags = ["tf", "ansi"]
     on_boot = true
@@ -50,9 +50,4 @@ resource "proxmox_virtual_environment_vm" "docker" {
       }
     }
 
-    # Cloning information
-    # clone {
-    #     vm_id = 9010
-    #     datastore_id = "local-btrfs"
-    # }
 }

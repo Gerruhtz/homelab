@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "minecraft" {
 
     # General information
     node_name = "proxmox"
-    name = "minecraft"
+    name = "Minecraft"
     vm_id = 2010
     tags = ["tf", "ansi"]
     on_boot = true

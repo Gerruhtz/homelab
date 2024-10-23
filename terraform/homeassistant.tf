@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
 
     # General information
     node_name = "proxmox"
-    name = "homeassistant"
+    name = "HomeAssistant"
     vm_id = 1006
     tags = ["tf"]
     on_boot = true

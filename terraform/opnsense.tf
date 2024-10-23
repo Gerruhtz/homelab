@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "opnsense" {
 
     # General information
     node_name = "proxmox"
-    name = "opnsense"
+    name = "OPNsense"
     vm_id = 101
     tags = ["tf"]
     on_boot = true
