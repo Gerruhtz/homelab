@@ -1,13 +1,13 @@
 VID10:
   hosts:
-    DIMM-AUTO:
+    AUTOMATION:
       ansible_host: 10.10.10.9
-    DIMM-DOCKER:
+    DOCKER:
       ansible_host: 10.10.10.10
-    DIMM-MEDIA:
+    MEDIA:
       ansible_host: 10.10.10.11
 
 DOCKER:
   hosts:
-    DIMM-DOCKER:
+    DOCKER:
       ansible_host: 10.10.10.10

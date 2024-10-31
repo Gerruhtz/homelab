@@ -49,5 +49,4 @@ resource "proxmox_virtual_environment_vm" "docker" {
         keys = [trimspace(data.local_file.public_ssh_key.content)]
       }
     }
-
 }

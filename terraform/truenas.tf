@@ -3,7 +3,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
     # General information
     node_name = "proxmox"
     name = "TrueNAS"
-    vm_id = 107
+    vm_id = 102
     tags = ["tf"]
     on_boot = true
     agent { enabled = true }
@@ -61,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
       dns { servers = ["10.10.1.1"] }
       ip_config {
         ipv4 {
-            address = "10.10.1.7/24"
+            address = "10.10.1.2/24"
             gateway = "10.10.1.1"
         }
       }

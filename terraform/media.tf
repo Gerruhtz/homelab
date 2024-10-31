@@ -61,10 +61,4 @@ resource "proxmox_virtual_environment_vm" "media" {
         keys = [trimspace(data.local_file.public_ssh_key.content)]
       }
     }
-
-    # Cloning information
-    #clone {
-    #    vm_id = 9010
-    #    datastore_id = "local-btrfs"
-    #}
 }
