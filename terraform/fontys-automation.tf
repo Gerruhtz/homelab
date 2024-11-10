@@ -57,8 +57,8 @@ resource "proxmox_virtual_environment_vm" "fontys-automation" {
     }
 
     # Cloning information
-    #clone {
-    #    vm_id = 9010
-    #    datastore_id = "local-btrfs"
-    #}
+    clone {
+       vm_id = 9020
+       datastore_id = "local-btrfs"
+    }
 }
