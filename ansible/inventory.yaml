@@ -7,6 +7,11 @@ VID10:
     MEDIA:
       ansible_host: 10.10.10.11
 
+VID20:
+  hosts:
+    FONTYS-AUTOMATION:
+      ansible_host: 10.10.20.10
+
 DOCKER:
   hosts:
     DOCKER:
