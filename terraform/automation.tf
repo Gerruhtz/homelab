@@ -9,6 +9,13 @@ resource "proxmox_virtual_environment_vm" "automation" {
     agent { enabled = true }
     operating_system { type = "l26" }
 
+    # Startup information
+    startup {
+      order = 4
+      up_delay = -1
+      down_delay = -1
+    }
+
     # Hardware information
     cpu {
         cores = 4

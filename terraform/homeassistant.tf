@@ -10,6 +10,13 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
     operating_system { type = "l26" }
     bios = "ovmf"
 
+    # Startup information
+    startup {
+      order = 3
+      up_delay = -1
+      down_delay = -1
+    }
+
     # Hardware information
     cpu {
         cores = 1

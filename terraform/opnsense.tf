@@ -10,6 +10,13 @@ resource "proxmox_virtual_environment_vm" "opnsense" {
     operating_system { type = "l26" }
     machine = "q35"
 
+    # Startup information
+    startup {
+        order = 1
+        up_delay = -1
+        down_delay = -1
+    }
+
     # Hardware information
     cpu {
         cores = 4

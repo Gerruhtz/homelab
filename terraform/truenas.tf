@@ -9,6 +9,13 @@ resource "proxmox_virtual_environment_vm" "truenas" {
     agent { enabled = true }
     operating_system { type = "l26" }
 
+    # Startup information
+    startup {
+      order = 2
+      up_delay = -1
+      down_delay = -1
+    }
+
     # Hardware information
     cpu {
         cores = 2

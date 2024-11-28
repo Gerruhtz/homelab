@@ -12,6 +12,13 @@ resource "proxmox_virtual_environment_vm" "media" {
     }
     machine = "q35"
 
+    # Startup information
+    startup {
+      order = 4
+      up_delay = -1
+      down_delay = -1
+    }
+
     # Hardware information
     cpu {
         cores = 4
