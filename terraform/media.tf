@@ -14,17 +14,21 @@ resource "proxmox_virtual_environment_vm" "media" {
 
     # Startup information
     startup {
-      order = 4
-      up_delay = -1
-      down_delay = -1
+      order = 5
+      up_delay = 150
+      down_delay = 90
     }
 
     # Hardware information
     cpu {
-        cores = 4
-        type = "x86-64-v2-AES"
+        cores = 6
+        type = "host"
+        numa = true
     }
-    memory { dedicated = 8192 }
+    memory {
+        dedicated = 16384
+        floating = 8192
+    }
     scsi_hardware = "virtio-scsi-single"
     hostpci {
       device = "hostpci0"
@@ -40,6 +44,7 @@ resource "proxmox_virtual_environment_vm" "media" {
         datastore_id = "local-btrfs"
         discard = "on"
         ssd = true
+        iothread = true
         file_format = "raw"
         size = 128
     }

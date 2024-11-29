@@ -11,17 +11,20 @@ resource "proxmox_virtual_environment_vm" "automation" {
 
     # Startup information
     startup {
-      order = 4
-      up_delay = -1
-      down_delay = -1
+      order = 6
+      up_delay = 180
+      down_delay = 60
     }
 
     # Hardware information
     cpu {
-        cores = 4
-        type = "x86-64-v2-AES"
+        cores = 2
+        type = "host"
+        numa = true
     }
-    memory { dedicated = 8192 }
+    memory {
+        dedicated = 4096
+    }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
@@ -30,6 +33,8 @@ resource "proxmox_virtual_environment_vm" "automation" {
         backup = true
         datastore_id = "local-btrfs"
         discard = "on"
+        ssd = true
+        iothread = true
         file_format = "raw"
         size = 32
     }

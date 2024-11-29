@@ -11,17 +11,21 @@ resource "proxmox_virtual_environment_vm" "docker" {
 
     # Startup information
     startup {
-      order = 2
-      up_delay = -1
-      down_delay = -1
+      order = 3
+      up_delay = 90
+      down_delay = 120
     }
 
     # Hardware information
     cpu {
-        cores = 2
-        type = "x86-64-v2-AES"
+        cores = 4
+        type = "host"
+        numa = true
     }
-    memory { dedicated = 4096 }
+    memory {
+        dedicated = 8192
+        floating = 4096
+    }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
@@ -30,6 +34,8 @@ resource "proxmox_virtual_environment_vm" "docker" {
         backup = true
         datastore_id = "local-btrfs"
         discard = "on"
+        ssd = true
+        iothread = true
         file_format = "raw"
         size = 64
     }

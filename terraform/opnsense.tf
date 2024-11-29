@@ -13,16 +13,20 @@ resource "proxmox_virtual_environment_vm" "opnsense" {
     # Startup information
     startup {
         order = 1
-        up_delay = -1
-        down_delay = -1
+        up_delay = 30
+        down_delay = 60
     }
 
     # Hardware information
     cpu {
-        cores = 4
-        type = "x86-64-v2-AES"
+        cores = 2
+        type = "host"
+        flags = ["+aes"]
+        numa = true
     }
-    memory { dedicated = 4096 }
+    memory {
+        dedicated = 2048
+    }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
@@ -31,6 +35,8 @@ resource "proxmox_virtual_environment_vm" "opnsense" {
         backup = true
         datastore_id = "local-btrfs"
         discard = "on"
+        ssd = true
+        iothread = true
         file_format = "raw"
         size = 64
     }

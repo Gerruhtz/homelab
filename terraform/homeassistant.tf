@@ -12,17 +12,20 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
 
     # Startup information
     startup {
-      order = 3
-      up_delay = -1
-      down_delay = -1
+      order = 4
+      up_delay = 120
+      down_delay = 60
     }
 
     # Hardware information
     cpu {
-        cores = 1
-        type = "x86-64-v2-AES"
+        cores = 2
+        type = "host"
+        numa = true
     }
-    memory { dedicated = 2048 }
+    memory {
+        dedicated = 4096
+    }
     scsi_hardware = "virtio-scsi-pci"
 
     # Disk information
@@ -33,6 +36,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
         datastore_id = "local-btrfs"
         discard = "on"
         ssd = true
+        iothread = true
         file_format = "raw"
         size = 32
     }

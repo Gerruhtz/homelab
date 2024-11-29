@@ -12,16 +12,20 @@ resource "proxmox_virtual_environment_vm" "truenas" {
     # Startup information
     startup {
       order = 2
-      up_delay = -1
-      down_delay = -1
+      up_delay = 60
+      down_delay = 120
     }
 
     # Hardware information
     cpu {
-        cores = 2
-        type = "x86-64-v2-AES"
+        cores = 4
+        type = "host"
+        flags = ["+aes"]
+        numa = true
     }
-    memory { dedicated = 16384 }
+    memory {
+        dedicated = 16384
+    }
     scsi_hardware = "virtio-scsi-single"
 
     # Disk information
@@ -31,6 +35,7 @@ resource "proxmox_virtual_environment_vm" "truenas" {
         datastore_id = "local-btrfs"
         discard = "on"
         ssd = true
+        iothread = true
         file_format = "raw"
         size = 64
     }
