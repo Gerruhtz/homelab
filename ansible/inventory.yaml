@@ -9,10 +9,5 @@ VID10:
 
 VID20:
   hosts:
-    FONTYS-AUTOMATION:
-      ansible_host: 10.10.20.10
-
-DOCKER:
-  hosts:
-    DOCKER:
-      ansible_host: 10.10.10.10
+    TEST:
+      ansible_host: 10.10.20.230

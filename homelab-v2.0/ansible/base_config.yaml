@@ -1,20 +1,21 @@
 # Ansible Playbook to deploy a base configuration to every VM
 # The base configuration exists of:
-# - Installing packages (nano, git, qemu-guest-agent, iputils-ping, nfs-common)
-# - Enabling services (qemu-guest-agent)
-# - Security measures (remove root password, install SSH key, disable SSH password authentication, disable SSH for root)
-# - Adding DNS record to OPNSense for each VM
-# - Setting automatic update schedule
+# # - Installing packages (nano, git, qemu-guest-agent, iputils-ping, nfs-common)
+# # - Enabling services (qemu-guest-agent)
+# # - Security measures (remove root password, install SSH key, disable SSH password authentication, disable SSH for root)
+# # - Adding DNS record to OPNSense
+# # - Setting automatic update schedule
+# # - Add resource to monitoring
 
-- name: Install packages and enable services
-  hosts: VID10
+- name: General tasks
+  hosts: VID20
   tasks:
 
-    - name: Update APT cache
+    - name: General - Update APT cache
       ansible.builtin.apt:
         update_cache: yes
 
-    - name: Install packages
+    - name: General - Install packages
       become: true
       ansible.builtin.apt:
         name: 
@@ -23,39 +24,81 @@
         - qemu-guest-agent
         - iputils-ping
         - nfs-common
+        - iproute2
         state: present
 
-    - name: Enabling services
+    - name: General - Enabling services
       become: true
       ansible.builtin.service:
         name: qemu-guest-agent
         enabled: yes
 
-- name: Security measures
-  hosts: VID10
+- name: Security tasks
+  hosts: VID20
   tasks:
 
-    - name: Remove password for root account
+    - name: Security - Remove password for root account
       become: true
       ansible.builtin.shell: sudo passwd -d root
+      when: ansible_facts['virtualization_type'] == "kvm"
 
-    - name: Install public SSH key
+    - name: Security - Install public SSH key
       ansible.builtin.shell: echo "{{ public_ssh_key }}" >> ~/.ssh/authorized_keys
 
-    - name: Disable SSH password authentication
-      ansible.builtin.shell: sudo sed -E -i 's|^#?(PasswordAuthentication)\s.*|\1 no|' /etc/ssh/sshd_config ; if ! grep '^PasswordAuthentication\s' /etc/ssh/sshd_config; then echo 'PasswordAuthentication no' | sudo tee -a /etc/ssh/sshd_config; fi
-
-    - name: Disable SSH access for root
+    - name: Security - Disable SSH password authentication
       become: true
-      ansible.builtin.shell: sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+      ansible.builtin.shell: sed -E -i 's|^#?(PasswordAuthentication)\s.*|\1 no|' /etc/ssh/sshd_config ; if ! grep '^PasswordAuthentication\s' /etc/ssh/sshd_config; then echo 'PasswordAuthentication no' | sudo tee -a /etc/ssh/sshd_config; fi
 
-    - name: Restart SSH service
+    - name: Security - Disable SSH access for root
       become: true
-      ansible.builtin.shell: sudo systemctl restart ssh
+      ansible.builtin.shell: sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+      when: ansible_facts['virtualization_type'] == "kvm"
 
-- name: Management tasks
-  hosts: VID10
-  tasks:
+    - name: Security - Restart SSH service
+      become: true
+      ansible.builtin.shell: systemctl restart ssh
 
-    - name: Add DNS record to OPNSense
-      
+# - name: Network tasks
+#   hosts: VID20
+#   module_defaults:
+#     group/ansibleguy.opnsense.all:
+#       firewall: "{{ firewall_ip }}"
+#       api_credential: "{{ api_credentials }}"
+#       ssl_verify: false
+#   tasks:
+
+#     - name: Network - Add entry to OPNsense (VM)
+#       ansibleguy.opnsense.unbound_host:
+#         description: "VM - {{ ansible_facts['fqdn'] }}"  # Format: "VM - [Hostname]"
+#         hostname: "{{ ansible_facts['fqdn'] }}"
+#         domain: 'local'
+#         value: "{{ ansible_facts['fqdn'] }}.local"
+#         record_type: 'A'
+#         reload: false
+#       when: ansible_facts['chassis_vendor'] == "QEMU"
+
+#     - name: Network - Add entry to OPNsense (CT)
+#       ansibleguy.opnsense.unbound_host:
+#         description: "CT - {{ ansible_facts['fqdn'] }}" # Format: "CT - [Hostname]"
+#         hostname: "{{ ansible_facts['fqdn'] }}"
+#         domain: 'local'
+#         value: "{{ ansible_facts['fqdn'] }}.local"
+#         record_type: 'A'
+#         reload: false
+#       when: ansible_facts['chassis_vendor'] == "HPE"
+
+# - name: Network tasks 2
+#   hosts: localhost
+#   tasks:
+
+#     - name: Network - Reload Unbound DNS
+#       ansibleguy.opnsense.reload:
+#         target: unbound
+
+# - name: Management tasks
+#   hosts: VID20
+#   tasks:
+
+#     - name: Enable automatic updates
+
+#     - name: Add to monitoring

@@ -8,3 +8,4 @@
 - [ ] Rework - Backup strategy
 - [ ] Rework - Resource management
 - [ ] Implement - Monitoring
+- [ ] Implement - Automatic certificates

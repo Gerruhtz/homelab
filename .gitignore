@@ -26,3 +26,8 @@ terraform.rc
 /ansible/group_vars/
 /ansible/host_vars/
 /ansible/ansible.cfg
+
+# Homelab-V2 sensitive files and folders
+/homelab-v2.0/ansible/group_vars/
+/homelab-v2.0/ansible/host_vars/
+/homelab-v2.0/ansible/ansible.cfg

@@ -1,0 +1,7 @@
+VID10:
+  hosts:
+
+VID20:
+  hosts:
+    TEST:
+      ansible_host: 10.10.20.230
