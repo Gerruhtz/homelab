@@ -5,3 +5,57 @@
 # - Security measures (remove root password, install SSH key, disable SSH password authentication, disable SSH for root)
 # - Adding DNS record to OPNSense for each VM
 # - Setting automatic update schedule
+
+- name: Install packages and enable services
+  hosts: VID10
+  tasks:
+
+    - name: Update APT cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install packages
+      become: true
+      ansible.builtin.apt:
+        name: 
+        - nano
+        - git
+        - qemu-guest-agent
+        - iputils-ping
+        - nfs-common
+        state: present
+
+    - name: Enabling services
+      become: true
+      ansible.builtin.service:
+        name: qemu-guest-agent
+        enabled: yes
+
+- name: Security measures
+  hosts: VID10
+  tasks:
+
+    - name: Remove password for root account
+      become: true
+      ansible.builtin.shell: sudo passwd -d root
+
+    - name: Install public SSH key
+      ansible.builtin.shell: echo "{{ public_ssh_key }}" >> ~/.ssh/authorized_keys
+
+    - name: Disable SSH password authentication
+      ansible.builtin.shell: sudo sed -E -i 's|^#?(PasswordAuthentication)\s.*|\1 no|' /etc/ssh/sshd_config ; if ! grep '^PasswordAuthentication\s' /etc/ssh/sshd_config; then echo 'PasswordAuthentication no' | sudo tee -a /etc/ssh/sshd_config; fi
+
+    - name: Disable SSH access for root
+      become: true
+      ansible.builtin.shell: sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+
+    - name: Restart SSH service
+      become: true
+      ansible.builtin.shell: sudo systemctl restart ssh
+
+- name: Management tasks
+  hosts: VID10
+  tasks:
+
+    - name: Add DNS record to OPNSense
+      
