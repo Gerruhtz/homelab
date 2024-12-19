@@ -1,0 +1,7 @@
+# Ansible Playbook to deploy a base configuration to every VM
+# The base configuration exists of:
+# - Installing packages (nano, git, qemu-guest-agent, iputils-ping, nfs-common)
+# - Enabling services (qemu-guest-agent)
+# - Security measures (remove root password, install SSH key, disable SSH password authentication, disable SSH for root)
+# - Adding DNS record to OPNSense for each VM
+# - Setting automatic update schedule
